@@ -1,0 +1,2770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E. O. Smith Teacher Homepage — Installation Wizard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #CC0000;
+    --red-dark: #A80000;
+    --black: #111113;
+    --ink: #1C1C1E;
+    --ink-soft: #5B5B60;
+    --gray: #F2F1EF;
+    --card: #FFFFFF;
+    --line: #E2E0DC;
+    --ok: #1B7F3B;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: var(--gray);
+    color: var(--ink);
+    font-size: 17px;
+    line-height: 1.55;
+    min-height: 100vh;
+  }
+
+  .masthead { background: var(--black); border-bottom: 5px solid var(--red); }
+  .masthead-inner { max-width: 880px; margin: 0 auto; padding: 26px 24px 22px; }
+  .brand {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--red);
+  }
+  .masthead h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: 0.03em;
+    color: #FFFFFF;
+    margin-top: 6px;
+  }
+  .masthead .sub { color: #C9C9CE; font-size: 15px; margin-top: 6px; }
+
+  .progress-wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 22px 24px 0;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .progress-bar { height: 8px; background: #E0DEDA; border-radius: 4px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0; background: var(--red); border-radius: 4px; transition: width 0.25s ease; }
+
+  main { max-width: 880px; margin: 0 auto; padding: 22px 24px 80px; }
+  .step { display: none; }
+  .step.active { display: block; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 28px 30px;
+    margin-bottom: 18px;
+  }
+  .card h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    letter-spacing: 0.03em;
+    color: var(--black);
+    margin-bottom: 4px;
+  }
+  .card h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: 0.05em;
+    color: var(--black);
+    margin: 22px 0 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+  .card h3:first-of-type { border-top: none; padding-top: 0; }
+  .step-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 2px;
+  }
+  .card p { margin: 10px 0; }
+  .card ol, .card ul { margin: 10px 0 10px 24px; }
+  .card li { margin: 6px 0; }
+  .muted { color: var(--ink-soft); font-size: 15px; }
+
+  .callout {
+    border-left: 4px solid var(--red);
+    background: #FBF3F3;
+    padding: 12px 16px;
+    border-radius: 0 6px 6px 0;
+    margin: 14px 0;
+    font-size: 15.5px;
+  }
+  .callout.info { border-left-color: var(--black); background: #F4F4F5; }
+  .callout.ok { border-left-color: var(--ok); background: #F0F7F2; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15.5px;
+    font-weight: 700;
+    border-radius: 7px;
+    border: 2px solid var(--black);
+    background: #FFFFFF;
+    color: var(--black);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--gray); }
+  .btn:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+  .btn-primary { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+  .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+  .btn-small { padding: 7px 14px; font-size: 13.5px; border-width: 1.5px; }
+
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .nav-row .spacer { flex: 1; }
+
+  .codeblock { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin: 14px 0 20px; }
+  .codeblock-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    background: var(--black);
+    color: #FFFFFF;
+    padding: 9px 14px;
+    font-size: 14px;
+  }
+  .codeblock-head .fname { font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace; font-weight: 600; }
+  .codeblock-head .ftype { color: #B9B9BE; font-size: 12.5px; margin-left: 8px; }
+  .codeblock pre {
+    max-height: 320px;
+    overflow: auto;
+    background: #FAFAF8;
+    padding: 14px 16px;
+    font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    font-size: 12.8px;
+    line-height: 1.5;
+    tab-size: 2;
+    white-space: pre;
+  }
+  .copy-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    background: var(--red);
+    color: #FFFFFF;
+    cursor: pointer;
+    flex: 0 0 auto;
+  }
+  .copy-btn:hover { background: var(--red-dark); }
+  .copy-btn.copied { background: var(--ok); }
+
+  table.cfg { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
+  table.cfg th, table.cfg td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.cfg th {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  table.cfg code { font-size: 13.5px; }
+  code {
+    font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    background: #EDECEA;
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-size: 14.5px;
+  }
+  .req { color: var(--red); font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
+  .opt { color: var(--ink-soft); font-weight: 700; font-size: 13px; letter-spacing: 0.05em; }
+
+  .checklist { list-style: none; margin-left: 0 !important; }
+  .checklist li { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0; }
+  .checklist input[type="checkbox"] { width: 20px; height: 20px; margin-top: 3px; accent-color: var(--red); flex: 0 0 auto; }
+
+  .converter {
+    border: 2px dashed var(--line);
+    border-radius: 8px;
+    padding: 18px;
+    margin: 14px 0;
+    background: #FCFCFB;
+  }
+  .converter-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 10px; }
+  #logo-preview { max-width: 140px; max-height: 110px; display: none; border: 1px solid var(--line); border-radius: 6px; background: repeating-conic-gradient(#EEE 0% 25%, #FFF 0% 50%) 0 0 / 16px 16px; }
+
+  .trouble-item { border: 1px solid var(--line); border-radius: 8px; margin: 12px 0; overflow: hidden; }
+  .trouble-item summary {
+    cursor: pointer;
+    padding: 13px 16px;
+    font-weight: 700;
+    background: #FAFAF8;
+    list-style: none;
+  }
+  .trouble-item summary::before { content: '\25B8  '; color: var(--red); }
+  .trouble-item[open] summary::before { content: '\25BE  '; }
+  .trouble-item .trouble-body { padding: 4px 16px 14px; }
+
+  /* ---------- Personalize form ---------- */
+  .cfg-field { margin: 18px 0; }
+  .cfg-field label { display: block; font-weight: 700; margin-bottom: 6px; }
+  .cfg-field input[type="text"] {
+    width: 100%;
+    max-width: 420px;
+    padding: 11px 14px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    border: 2px solid var(--line);
+    border-radius: 7px;
+  }
+  .cfg-field input[type="text"]:focus { border-color: var(--red); outline: none; }
+  .cfg-field .muted { margin: 5px 0 0; font-size: 14px; }
+  .color-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .color-row input { flex: 0 1 280px; }
+  .swatch {
+    width: 38px;
+    height: 38px;
+    border-radius: 7px;
+    border: 2px solid var(--line);
+    background: repeating-conic-gradient(#EEE 0% 25%, #FFF 0% 50%) 0 0 / 12px 12px;
+    flex: 0 0 auto;
+  }
+  .swatch-text { font-size: 13.5px; min-width: 110px; }
+  .cfg-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 400;
+    margin: 8px 0;
+    cursor: pointer;
+  }
+  .cfg-check input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--red); flex: 0 0 auto; }
+  .cfg-field textarea {
+    width: 100%;
+    max-width: 640px;
+    min-height: 76px;
+    padding: 11px 14px;
+    font-size: 14px;
+    font-family: ui-monospace, 'Cascadia Code', Menlo, Consolas, monospace;
+    border: 2px solid var(--line);
+    border-radius: 7px;
+    resize: vertical;
+  }
+  .cfg-field textarea:focus { border-color: var(--red); outline: none; }
+  .cal-check-msg { font-size: 14px; font-weight: 600; margin: 6px 0 0; }
+  .cal-check-msg.ok { color: var(--ok); }
+  .cal-check-msg.warn { color: var(--red); }
+  #brand-preview {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: #0B0B0C;
+    border-bottom: 5px solid #CC0000;
+    border-radius: 8px 8px 0 0;
+    padding: 18px 22px;
+    margin-top: 6px;
+  }
+  .pv-badge {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #0B0B0C;
+    border: 3px solid #CC0000;
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    flex: 0 0 auto;
+  }
+  .pv-name {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: #FFF;
+  }
+  .pv-tagline {
+    font-family: 'Oswald', sans-serif;
+    font-size: 11.5px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #B9B9BE;
+    margin-top: 3px;
+  }
+
+  #toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--black);
+    color: #FFF;
+    padding: 11px 20px;
+    border-radius: 6px;
+    border-left: 4px solid var(--red);
+    font-size: 14.5px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 50;
+  }
+  #toast.show { opacity: 1; }
+
+  footer { text-align: center; padding: 0 24px 40px; color: var(--ink-soft); font-size: 13.5px; }
+  footer a { color: var(--red); }
+
+  @media (max-width: 560px) {
+    body { font-size: 16px; }
+    .card { padding: 20px 18px; }
+    .masthead h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="brand">E. O. Smith High School</div>
+    <h1>Teacher Homepage Installation Wizard</h1>
+    <div class="sub">Step-by-step setup for your Google Apps Script web app &mdash; installing: <strong style="color:#FFF">E. O. Smith Teacher Homepage</strong></div>
+  </div>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span id="progress-step">Step 1 of 11</span><span id="progress-name">Welcome</span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<main id="steps">
+
+  <!-- ==================== STEP 1: WELCOME ==================== -->
+  <section class="step" data-name="Welcome">
+    <div class="card">
+      <div class="step-kicker">Step 1</div>
+      <h2>Welcome — install your E. O. Smith Teacher Homepage</h2>
+      <p><strong>School Homepage</strong> is a personal browser start page that runs entirely in your own Google account. It shows your links in branded category cards, with a type-to-filter box, drag-to-rearrange category tiles, optional To-Do, Important Documents, and embedded Google Calendar cards, a copy button on every URL, and an Edit mode so you can change everything right in the page — no code edits after setup.</p>
+      <div class="callout info">This wizard will guide you through copying files into Google Apps Script. It does not directly install the app into your Google account.</div>
+      <h3>What you'll need</h3>
+      <ul>
+        <li>A Google account (personal or Google Workspace / school account)</li>
+        <li>Access to <a href="https://script.google.com/home" target="_blank" rel="noopener">Google Apps Script</a> — some districts restrict it; if the link won't load, ask your IT department</li>
+        <li>Permission to authorize the app for your own Google Drive (it stores your saved links in one small JSON file)</li>
+        <li>Optional: your school logo as a PNG or JPG — this wizard converts it for you in Step 5</li>
+        <li>About 15 minutes</li>
+      </ul>
+      <p class="muted">No spreadsheet, form, or shared folder is required. Everything the app needs, it creates itself.</p>
+      <div class="nav-row">
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next" id="start-btn">Start</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 2: REQUIREMENTS ==================== -->
+  <section class="step" data-name="Requirements">
+    <div class="card">
+      <div class="step-kicker">Step 2</div>
+      <h2>What this app needs</h2>
+      <p>Just your Google account. The app is fully self-contained: it stores your links in one small file (<code>School Homepage Links.json</code>) that it creates in your Google Drive the first time you save, and you'll answer a few quick questions — school name, colors, and optional cards — in Step 4. There's nothing to prepare before you start.</p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Next Step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 3: CREATE PROJECT ==================== -->
+  <section class="step" data-name="Create project">
+    <div class="card">
+      <div class="step-kicker">Step 3</div>
+      <h2>Create the Apps Script project</h2>
+      <ol>
+        <li>Go to <a href="https://script.google.com/home" target="_blank" rel="noopener">script.google.com/home</a> (button below).</li>
+        <li>Click <strong>New project</strong>.</li>
+        <li>Click the name <em>Untitled project</em> at the top and rename it to <strong>School Homepage</strong> (or your school's name).</li>
+        <li>Open <strong>Project Settings</strong> (the gear icon in the left sidebar).</li>
+        <li>Check <strong>Show "appsscript.json" manifest file in editor</strong> — this app includes a manifest, and you'll replace it in the next step.</li>
+        <li>Return to the <strong>Editor</strong> (the <code>&lt; &gt;</code> icon).</li>
+      </ol>
+      <p><a class="btn" href="https://script.google.com/home" target="_blank" rel="noopener">Open script.google.com &nearr;</a></p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">I completed this step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 4: PERSONALIZE ==================== -->
+  <section class="step" data-name="Personalize">
+    <div class="card">
+      <div class="step-kicker">Step 4</div>
+      <h2>Make it yours</h2>
+      <p>Answer these questions and the wizard writes your answers into the code for you — no code editing needed. The preview below updates as you type.</p>
+
+      <div class="cfg-field">
+        <label for="cfg-primary-name">School name — first part <span class="req">REQUIRED</span></label>
+        <input type="text" id="cfg-primary-name" data-cfg value="E. O. Smith">
+        <p class="muted">Shown in white in the header. Example: <em>Lincoln</em></p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-accent-name">School name — second part <span class="req">REQUIRED</span></label>
+        <input type="text" id="cfg-accent-name" data-cfg value="High School">
+        <p class="muted">Shown in your school color. Example: <em>High School</em></p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-tagline">Tagline</label>
+        <input type="text" id="cfg-tagline" data-cfg value="Teachers Homepage">
+        <p class="muted">The small line under the school name.</p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-your-name">Your first name <span class="opt">OPTIONAL</span></label>
+        <input type="text" id="cfg-your-name" data-cfg value="">
+        <p class="muted">Personalizes the greeting: &ldquo;Good morning, Dave.&rdquo; Leave blank for a plain greeting.</p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-greeting">Welcome/greeting language <span class="opt">OPTIONAL</span></label>
+        <input type="text" id="cfg-greeting" data-cfg value="Go Panthers" placeholder="Go Panthers">
+        <p class="muted">Appears after the time-based greeting. For example: &ldquo;Good morning — Go Panthers.&rdquo; Change it or leave it blank.</p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-primary-color">School color <span class="req">REQUIRED</span></label>
+        <div class="color-row">
+          <input type="text" id="cfg-primary-color" data-cfg value="#FF0000">
+          <span class="swatch" id="sw-primary"></span>
+          <span class="muted swatch-text" id="swtext-primary"></span>
+        </div>
+        <p class="muted">Type a color name (<em>red</em>, <em>navy blue</em>, <em>forest green</em>, <em>vegas gold</em>) or a hex code like <em>#003366</em>.</p>
+      </div>
+      <div class="cfg-field">
+        <label for="cfg-dark-color">Header background</label>
+        <div class="color-row">
+          <input type="text" id="cfg-dark-color" data-cfg value="#000000">
+          <span class="swatch" id="sw-dark"></span>
+          <span class="muted swatch-text" id="swtext-dark"></span>
+        </div>
+        <p class="muted">Keep this dark so the white text stays readable.</p>
+      </div>
+
+      <div class="cfg-field">
+        <label>Optional cards</label>
+        <label class="cfg-check"><input type="checkbox" id="cfg-show-todo" data-cfg> Include a <strong>To-Do list</strong> card (checkboxes, notes, edit in place)</label>
+        <label class="cfg-check"><input type="checkbox" id="cfg-show-docs" data-cfg checked> Include an <strong>Important Documents</strong> card (open + remove icons; add documents with the in-page Edit button)</label>
+        <label class="cfg-check"><input type="checkbox" id="cfg-show-calendar" data-cfg checked> Include a <strong>Google Calendar</strong> card (a live calendar embedded full-width on the page)</label>
+      </div>
+
+      <div class="cfg-field" id="cal-details" style="display:none">
+        <label for="cfg-calendar-url">Your calendar link <span class="req">REQUIRED FOR THE CALENDAR CARD</span></label>
+        <p class="muted" style="margin:0 0 8px">Get it from Google Calendar on a computer:</p>
+        <ol style="margin-top:0">
+          <li>In the left sidebar, hover over the calendar you want, click the <strong>three dots</strong>, and choose <strong>Settings and sharing</strong>.</li>
+          <li>Scroll down to <strong>Integrate calendar</strong>.</li>
+          <li>Copy any ONE of these &mdash; the <strong>Embed code</strong>, the <strong>Public URL to this calendar</strong>, or the <strong>Calendar ID</strong> &mdash; and paste it below. Whichever you grab, the wizard writes the iframe code for you.</li>
+        </ol>
+        <textarea id="cfg-calendar-url" data-cfg placeholder="Paste the embed code, public URL, or Calendar ID here&hellip;">https://calendar.google.com/calendar/embed?src=c_7700e5858b8298196af01728854c43cdff74c102629e8e8436c36d82b7d901cc%40group.calendar.google.com&ctz=America%2FNew_York</textarea>
+        <p class="cal-check-msg" id="cal-check"></p>
+        <p class="muted">The card shows whatever the signed-in viewer is allowed to see. Your own calendars just work; a calendar that isn't shared with the viewer shows an access message instead. To show it to other people (or on a public page), the calendar's owner shares it first under <strong>Settings and sharing &rarr; Access permissions for events</strong>.</p>
+        <label for="cfg-calendar-title" style="margin-top:14px">What should the card be called?</label>
+        <input type="text" id="cfg-calendar-title" data-cfg value="Events Calendar">
+        <p class="muted">The heading above the embedded calendar.</p>
+      </div>
+
+      <h3>Preview</h3>
+      <div id="brand-preview">
+        <div class="pv-badge" id="pv-badge">YS</div>
+        <div>
+          <div class="pv-name"><span id="pv-primary"></span> <span id="pv-accent"></span></div>
+          <div class="pv-tagline" id="pv-tagline"></div>
+        </div>
+      </div>
+      <p class="muted">If you add a logo in the next step, it replaces the initials circle.</p>
+
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Next Step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 4: ADD FILES ==================== -->
+  <section class="step" data-name="Add files">
+    <div class="card">
+      <div class="step-kicker">Step 5</div>
+      <h2>Add the project files</h2>
+      <p>You'll create <strong>3 required files</strong> (plus 1 optional logo file). Filenames must match <em>exactly</em> — Apps Script is case-sensitive, and the code loads <code>Index</code> by name.</p>
+      <div class="callout">Before pasting replacement code, click inside the Apps Script file, press Ctrl+A or Cmd+A, delete the old contents, and then paste the new code. Do not paste new code underneath old code.</div>
+
+      <h3>1. appsscript.json <span class="ftype-inline muted">(manifest file)</span></h3>
+      <p>Open Project Settings, enable <strong>Show appsscript.json manifest file</strong> (done in Step 3), click <code>appsscript.json</code> in the editor's file list, then replace the manifest contents with:</p>
+      <div class="codeblock">
+        <div class="codeblock-head"><span><span class="fname">appsscript.json</span><span class="ftype">Manifest file</span></span><button type="button" class="copy-btn" data-code="code-manifest">Copy code</button></div>
+        <pre id="pre-manifest"></pre>
+      </div>
+
+      <h3>2. Code.gs <span class="ftype-inline muted">(server-side Apps Script file)</span></h3>
+      <p>The project already has a file named <code>Code.gs</code>. Open it, select all (Ctrl+A / Cmd+A), delete, and paste. <strong>This code already contains your answers from Step 4</strong> — if you change your answers, come back and copy it again.</p>
+      <div class="codeblock">
+        <div class="codeblock-head"><span><span class="fname">Code.gs</span><span class="ftype">Server-side Apps Script file</span></span><button type="button" class="copy-btn" data-code="code-codegs">Copy code</button></div>
+        <pre id="pre-codegs"></pre>
+      </div>
+
+      <h3>3. Index.html <span class="ftype-inline muted">(HTML file)</span></h3>
+      <p>Create an HTML file with this exact name: click <strong>+</strong> next to Files, choose <strong>HTML</strong>, and name it <strong>Index</strong> (Apps Script adds the <code>.html</code>). Select all, delete the placeholder, and paste:</p>
+      <div class="codeblock">
+        <div class="codeblock-head"><span><span class="fname">Index.html</span><span class="ftype">HTML file</span></span><button type="button" class="copy-btn" data-code="code-index">Copy code</button></div>
+        <pre id="pre-index"></pre>
+      </div>
+
+      <h3>4. Logo.gs — optional <span class="ftype-inline muted">(server-side Apps Script file)</span></h3>
+      <p>The E. O. Smith Panther logo is already loaded. To use a different logo, choose a PNG or JPG below; the replacement image never leaves this page:</p>
+      <div class="converter">
+        <strong>Logo converter</strong>
+        <p class="muted" style="margin-top:4px">Pick a PNG or JPG (a transparent PNG looks best on the dark header). It's resized to 220px wide and turned into a ready-to-paste <code>Logo.gs</code>.</p>
+        <div class="converter-row">
+          <input type="file" id="logo-file" accept="image/png,image/jpeg,image/webp">
+          <img id="logo-preview" alt="Logo preview">
+        </div>
+      </div>
+      <div class="codeblock" id="logo-codeblock">
+        <div class="codeblock-head"><span><span class="fname">Logo.gs</span><span class="ftype">Server-side Apps Script file &mdash; create a Script file with this exact name</span></span><button type="button" class="copy-btn" data-code="code-logo">Copy code</button></div>
+        <pre id="pre-logo" style="max-height:140px"></pre>
+      </div>
+      <p class="muted" id="logo-hint">Create a Script file named <strong>Logo</strong> (click <strong>+</strong> &rarr; <strong>Script</strong>) and paste the preset logo code below, or upload a replacement first.</p>
+
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">I completed this step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 6: SETUP FUNCTION ==================== -->
+  <section class="step" data-name="Setup function">
+    <div class="card">
+      <div class="step-kicker">Step 6</div>
+      <h2>Setup function</h2>
+      <p>Nothing to run here — this app sets itself up. The first time you click <strong>Edit &rarr; Save</strong> in the finished homepage, it creates its settings file in your Drive automatically. From then on, always change links with the in-page Edit button (not in the code).</p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Next Step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 7: AUTHORIZATION ==================== -->
+  <section class="step" data-name="Authorization">
+    <div class="card">
+      <div class="step-kicker">Step 7</div>
+      <h2>Authorization — what to expect</h2>
+      <p>When you deploy in the next step, Google will ask you to approve one permission: access to your Google Drive. That's so the app can save your links file — the only thing it touches. Here's what the screens will look like:</p>
+      <ol>
+        <li>Click <strong>Review Permissions</strong> when prompted.</li>
+        <li>Choose the Google account you're installing under.</li>
+        <li>If you see <strong>&ldquo;Google hasn't verified this app&rdquo;</strong>, click <strong>Advanced</strong>, then <strong>Go to School Homepage (unsafe)</strong>.</li>
+        <li>Click <strong>Allow</strong>.</li>
+      </ol>
+      <p class="muted">The &ldquo;unverified&rdquo; warning is normal here — you're the developer of your own copy. Only click through warnings like this for code you pasted yourself.</p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Next Step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 8: DEPLOY ==================== -->
+  <section class="step" data-name="Deploy">
+    <div class="card">
+      <div class="step-kicker">Step 8</div>
+      <h2>Deploy as a web app</h2>
+      <p>This app's manifest declares its required deployment settings — use these exactly:</p>
+      <div class="codeblock">
+        <div class="codeblock-head"><span><span class="fname">Deployment settings</span></span><button type="button" class="copy-btn" id="copy-deploy">Copy deployment settings</button></div>
+        <pre id="pre-deploy">Type:            Web app
+Description:     School Homepage v1
+Execute as:      Me (your email)
+Who has access:  Only myself</pre>
+      </div>
+      <ol>
+        <li>Click <strong>Deploy</strong> (top right) &rarr; <strong>New deployment</strong>.</li>
+        <li>Click the gear next to <em>Select type</em> and choose <strong>Web app</strong>.</li>
+        <li>Add a description, e.g. <em>School Homepage v1</em>.</li>
+        <li>Execute as: <strong>Me</strong>.</li>
+        <li>Who has access: <strong>Only myself</strong>.</li>
+        <li>Click <strong>Deploy</strong>, authorize if prompted (see Step 7), then <strong>copy the Web app URL</strong> — the one ending in <code>/exec</code>.</li>
+      </ol>
+      <p>Why these settings: this is a <em>personal</em> homepage. &ldquo;Execute as: Me&rdquo; + &ldquo;Only myself&rdquo; means the app runs under your account, stores data in your Drive, and nobody else can open your copy. Colleagues who want one should run this wizard themselves.</p>
+      <div class="callout">If this app handles student data, credentials, attendance, discipline, or private records, do not deploy it as public or anonymous.</div>
+      <h3>Set it as your browser homepage</h3>
+      <p>Paste the <code>/exec</code> URL into your browser's homepage / new-window setting (e.g. Chrome: Settings &rarr; Appearance &rarr; Show home button &rarr; paste URL).</p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">I completed this step</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 9: TEST ==================== -->
+  <section class="step" data-name="Test">
+    <div class="card">
+      <div class="step-kicker">Step 9</div>
+      <h2>Test your homepage</h2>
+      <p>Open the <code>/exec</code> URL and work through this list:</p>
+      <ul class="checklist" id="test-checklist">
+        <li><input type="checkbox" id="t1"><label for="t1">The page loads with <strong>your school name, tagline, and colors</strong> from CONFIG.</label></li>
+        <li><input type="checkbox" id="t2"><label for="t2">Your <strong>logo</strong> appears — or, if you skipped Logo.gs, an <strong>initials badge</strong> in your colors.</label></li>
+        <li><input type="checkbox" id="t3"><label for="t3">Links open in a <strong>new tab</strong>.</label></li>
+        <li><input type="checkbox" id="t4"><label for="t4">The <strong>copy icon</strong> next to a link copies its URL (a &ldquo;URL copied&rdquo; toast appears).</label></li>
+        <li><input type="checkbox" id="t5"><label for="t5">Typing in the <strong>filter box</strong> narrows the links; clearing it restores them.</label></li>
+        <li><input type="checkbox" id="t6"><label for="t6"><strong>Drag a card by its title bar</strong> to a new spot &mdash; an &ldquo;Order saved&rdquo; toast appears and the order survives a reload. (Touch devices: reorder with the arrows in Edit mode instead.)</label></li>
+        <li><input type="checkbox" id="t6b"><label for="t6b"><strong>Edit</strong> &rarr; change a label &rarr; <strong>Save</strong> shows a &ldquo;Saved&rdquo; toast.</label></li>
+        <li><input type="checkbox" id="t7"><label for="t7"><strong>Reload the page</strong> — your edit is still there (it survived in Drive).</label></li>
+        <li><input type="checkbox" id="t8"><label for="t8">Your Drive now contains <code>School Homepage Links.json</code>.</label></li>
+        <li><input type="checkbox" id="t9"><label for="t9">If you kept them: add a <strong>To-Do</strong> item and check it off, and add an <strong>Important Document</strong> with the Edit button &mdash; reload and confirm both stuck.</label></li>
+        <li><input type="checkbox" id="t10"><label for="t10">If you added it: the <strong>Google Calendar card</strong> shows your events in a full-width card at the bottom (drag its title bar to move it up).</label></li>
+      </ul>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Everything works</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 10: TROUBLESHOOTING ==================== -->
+  <section class="step" data-name="Troubleshooting">
+    <div class="card">
+      <div class="step-kicker">Step 10</div>
+      <h2>Troubleshooting</h2>
+
+      <details class="trouble-item"><summary>Syntax error: Identifier has already been declared</summary><div class="trouble-body">
+        <p>This usually means code was pasted twice, or an old copy was not deleted before pasting the new code.</p>
+        <ul><li>Open the file named in the error message.</li><li>Search for the repeated identifier (for this app, commonly <code>CONFIG</code>, <code>STORAGE_FILE_NAME</code>, or <code>DEFAULT_LINKS</code>).</li><li>Make sure each appears only once.</li><li>When replacing a full file, always Ctrl+A / Cmd+A and delete before pasting.</li></ul>
+      </div></details>
+
+      <details class="trouble-item"><summary>Authorization Required</summary><div class="trouble-body">
+        <p>Open the running web app once and follow the prompts, or in the editor pick <code>doGet</code> in the function dropdown, click <strong>Run</strong>, and approve the permissions as described in Step 7.</p>
+      </div></details>
+
+      <details class="trouble-item"><summary>Access Denied when opening the URL</summary><div class="trouble-body">
+        <p>You're likely signed into a different Google account in that browser tab (common with multiple school/personal profiles). Open the URL in the profile that owns the script. Also confirm the deployment says <em>Execute as: Me</em> / <em>Only myself</em>.</p>
+      </div></details>
+
+      <details class="trouble-item"><summary>Web app shows an old version after code changes</summary><div class="trouble-body">
+        <p>Apps Script deployments do not update automatically. After editing code: <strong>Deploy &rarr; Manage deployments &rarr; pencil icon &rarr; Version: New version &rarr; Deploy</strong>. A hard refresh (Ctrl+Shift+R) helps if the browser cached the page.</p>
+      </div></details>
+
+      <details class="trouble-item"><summary>Buttons do nothing</summary><div class="trouble-body">
+        <ul><li>Confirm the HTML file is named exactly <code>Index</code> — <code>doGet</code> loads it by that name.</li><li>Confirm you're opening the deployed <code>/exec</code> URL, not previewing raw HTML.</li><li>Check the browser console (F12) for errors — a partial paste of Index.html is the usual culprit.</li></ul>
+      </div></details>
+
+      <details class="trouble-item"><summary>The logo doesn't render (broken image or initials showing instead)</summary><div class="trouble-body">
+        <ul><li><code>Logo.gs</code> contains one very long line. If it was truncated during copy/paste, the image data is corrupt — re-copy it from Step 5's converter output.</li><li>Do not change the template tags in Index.html: <code>&lt;?!= ... ?&gt;</code> must keep its exclamation mark. The standard <code>&lt;?= ?&gt;</code> tag sanitizes <code>data:</code> image URIs away.</li><li>Confirm the file is named exactly <code>Logo</code> and defines <code>var LOGO_DATA_URI = '...';</code>.</li></ul>
+      </div></details>
+
+      <details class="trouble-item"><summary>My edits to DEFAULT_LINKS in the code aren't showing up</summary><div class="trouble-body">
+        <p>Expected once you've saved from the page at least once — the Drive file <code>School Homepage Links.json</code> overrides <code>DEFAULT_LINKS</code> from then on. Either make your changes with the in-page <strong>Edit</strong> button (recommended), or reset: delete the Drive file <em>and</em> clear the <code>LINKS_FILE_ID</code> property under Project Settings &rarr; Script Properties.</p>
+      </div></details>
+
+      <details class="trouble-item"><summary>The calendar card is missing, blank, or says you don't have permission</summary><div class="trouble-body">
+        <ul><li><strong>Missing entirely:</strong> the calendar link pasted in Step 4 wasn't usable, so the app hides the card. Go back to Step 4, fix the paste (the checker under the box will say &ldquo;Looks good&rdquo;), then re-copy <code>Code.gs</code>, re-paste it, and deploy a <strong>New version</strong>.</li><li><strong>Blank or &ldquo;You do not have permission&rdquo;:</strong> the browser is signed into a Google profile that can't see that calendar. Open the page in the right profile, or ask the calendar's owner to share it (<strong>Settings and sharing &rarr; Access permissions for events</strong> / share with specific people).</li><li><strong>Showing the wrong time zone:</strong> the app uses your Apps Script project's time zone when the link doesn't specify one &mdash; check it under Project Settings.</li></ul>
+      </div></details>
+
+      <details class="trouble-item"><summary>Script cannot find a sheet/tab &middot; Email not sending</summary><div class="trouble-body">
+        <p>Not applicable to this app — it uses no spreadsheet and sends no email. If you see errors mentioning these, code from a different project was pasted in by mistake.</p>
+      </div></details>
+
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-primary" data-nav="next">Continue to finish</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 11: DONE ==================== -->
+  <section class="step" data-name="Done">
+    <div class="card">
+      <div class="step-kicker">Step 11</div>
+      <h2>You're done! 🎉</h2>
+      <div class="callout ok"><strong>Your School Homepage is installed and running in your own Google account.</strong></div>
+      <p>Four reminders before you go:</p>
+      <ul>
+        <li><strong>Bookmark the <code>/exec</code> URL</strong> (and set it as your browser homepage) — it's the only door into your app.</li>
+        <li><strong>Keep the Apps Script project.</strong> Deleting it kills the deployment.</li>
+        <li><strong>Protect <code>School Homepage Links.json</code></strong> in your Drive — deleting it resets your links to the defaults (the app recreates it on your next save; nothing breaks).</li>
+        <li><strong>Sharing with colleagues?</strong> Don't share your URL — it's locked to you by design. Send them this wizard instead so they get their own copy.</li>
+      </ul>
+      <p class="muted">Found this useful? More free Apps Script tools for educators at <a href="https://scriptingforschools.org" target="_blank" rel="noopener">scriptingforschools.org</a>.</p>
+      <div class="nav-row">
+        <button type="button" class="btn" data-nav="back">Back</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn" id="restart-btn">Restart wizard</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>Scripting for Schools &middot; free Apps Script tools for K-12 educators &middot; <a href="https://scriptingforschools.org" target="_blank" rel="noopener">scriptingforschools.org</a></footer>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<!-- ============================================================
+     Embedded source files. Stored as text/plain so nothing is
+     escaped or corrupted. Any literal "</script" inside the code
+     is stored as "<\/script" and restored at copy time.
+     ============================================================ -->
+<script type="text/plain" id="code-manifest">{
+  "timeZone": "America/New_York",
+  "exceptionLogging": "STACKDRIVER",
+  "runtimeVersion": "V8",
+  "oauthScopes": [
+    "https://www.googleapis.com/auth/drive"
+  ],
+  "webapp": {
+    "executeAs": "USER_DEPLOYING",
+    "access": "MYSELF"
+  }
+}</script>
+<script type="text/plain" id="code-codegs">/**
+ * School Homepage — a personal browser start page you can edit in place.
+ * From Scripting for Schools (scriptingforschools.org).
+ *
+ * Deploy as web app: "Execute as: Me", "Who has access: Only myself".
+ * Set the /exec URL as your browser homepage.
+ *
+ * HOW DATA WORKS
+ * DEFAULT_LINKS below seeds the page. The first time you click Edit > Save,
+ * the app writes a JSON file ("School Homepage Links.json") to your Drive
+ * and uses that from then on. After that, edit links in the page, not here.
+ * To reset to defaults: delete the Drive file and clear the LINKS_FILE_ID
+ * script property (Project Settings > Script Properties).
+ *
+ * ITEM FORMAT
+ *   { label: 'Gmail', url: 'https://...' }            -> plain link row
+ *   { label: 'App Name' }                             -> bold app header (no url)
+ *   { label: 'Admin', url: '...', sub: true }         -> indented sub-link
+ *   { label: 'Teacher', url: '...', sub: true, note: '...' }
+ *   { label: 'Student url', note: 'Generated in app', sub: true }  -> note row
+ */
+
+// ============================================================
+// CONFIG — edit these values to make the homepage yours
+// ============================================================
+var CONFIG = {
+  // Masthead name, in two parts. PRIMARY renders white, ACCENT renders
+  // in your PRIMARY_COLOR. Example: 'E.O. Smith' + 'High School'.
+  SCHOOL_NAME_PRIMARY: 'E. O. Smith',
+  SCHOOL_NAME_ACCENT: 'High School',
+
+  // Small line under the school name, e.g. 'Staff Homepage'.
+  TAGLINE: 'Teachers Homepage',
+
+  // Your first name for the greeting, e.g. 'Dave' -> "Good morning, Dave".
+  // Leave '' for a plain greeting.
+  YOUR_NAME: '',
+
+  // Optional ending for the greeting, e.g. 'go Panthers.'
+  // Leave '' for a plain 'Good morning'.
+  GREETING_TAGLINE: 'Go Panthers',
+
+  // Optional cards: true shows the card, false hides it.
+  SHOW_TODO: false,
+  SHOW_DOCS: true,
+
+  // Optional Google Calendar card (full width). Paste your calendar's
+  // embed code, its public URL, or just the Calendar ID into
+  // CALENDAR_EMBED_URL -- the app figures out which one it got.
+  // The card only appears when SHOW_CALENDAR is true AND the value
+  // below is usable. The calendar shows whatever the signed-in viewer
+  // is allowed to see.
+  SHOW_CALENDAR: true,
+  CALENDAR_EMBED_URL: 'https://calendar.google.com/calendar/embed?src=c_7700e5858b8298196af01728854c43cdff74c102629e8e8436c36d82b7d901cc%40group.calendar.google.com&ctz=America%2FNew_York',
+  CALENDAR_TITLE: 'Events Calendar',
+
+  // School colors (hex). PRIMARY is the accent red/blue/green/etc.;
+  // DARK is the masthead background.
+  PRIMARY_COLOR: '#FF0000',
+  DARK_COLOR: '#000000'
+};
+// ============================================================
+// END CONFIG
+// ============================================================
+
+var STORAGE_FILE_NAME = 'School Homepage Links.json';
+
+var DEFAULT_LINKS = [
+  {
+    "category": "Start of the Year",
+    "items": [
+      {
+        "label": "Mandatory Trainings",
+        "url": "https://eosmith.instructure.com/courses/62/external_tools/9220"
+      },
+      {
+        "label": "Reading Initiative",
+        "url": ""
+      },
+      {
+        "label": "Vocab Strategies / PD Schedule",
+        "url": "https://docs.google.com/document/d/11HEEp0bUcCIDGQROCtc6uQFOVjwp7PRmgMuku3tqCJA/edit?tab=t.0",
+        "sub": true
+      },
+      {
+        "label": "Past PD Work",
+        "url": "https://eosmith.instructure.com/courses/62/pages/instructional-slash-equity-resources"
+      },
+      {
+        "label": "Professional Development 2026-27",
+        "url": ""
+      },
+      {
+        "label": "PD Calendar",
+        "url": "https://docs.google.com/document/d/1XbIYYKKAOHOEUzF1JoKth30Vt8r-aesSA45ECB0z8Vc/edit?tab=t.0",
+        "sub": true
+      },
+      {
+        "label": "School Improvement Plan (SIP)",
+        "url": "https://docs.google.com/document/d/1np7Sjz6SU0DcMYlPldn7tOCI-f_rPeAj/edit",
+        "sub": true
+      },
+      {
+        "label": "August 25",
+        "url": "https://docs.google.com/document/d/1mWAol3SgAqlVqwAThuCLZKvXTUPF9tBqPjQfLEfIQRA/edit?tab=t.0",
+        "sub": true
+      },
+      {
+        "label": "August 26",
+        "url": "https://docs.google.com/document/d/1LQlrYyKFurZ7jYXblBOFW2bqnu1qC1BMhT7XD0EM-54/edit?usp=sharing",
+        "sub": true
+      }
+    ]
+  },
+  {
+    "category": "Daily Tools",
+    "items": [
+      {
+        "label": "Outlook",
+        "url": "https://outlook.office365.com/mail/?vd=mail"
+      },
+      {
+        "label": "Add School Event to Calendar",
+        "url": "https://docs.google.com/forms/d/e/1FAIpQLScQoAsp5fx_FSn93rij0XtiMbm1bGq_BwovujUuBDwS_vMppw/viewform?usp=header"
+      },
+      {
+        "label": "PowerSchool",
+        "url": ""
+      },
+      {
+        "label": "Teacher Login",
+        "url": "https://rsd19.powerschool.com/teachers",
+        "sub": true
+      },
+      {
+        "label": "Admin Login",
+        "url": "https://rsd19.powerschool.com/admin",
+        "sub": true
+      },
+      {
+        "label": "Sub Portal",
+        "url": "https://rsd19.powerschool.com/subs",
+        "sub": true
+      },
+      {
+        "label": "Google Drive",
+        "url": "https://drive.google.com"
+      },
+      {
+        "label": "Canvas",
+        "url": ""
+      },
+      {
+        "label": "Dashboard",
+        "url": "https://eosmith.instructure.com/",
+        "sub": true
+      },
+      {
+        "label": "Teacher Resources",
+        "url": "https://eosmith.instructure.com/courses/62",
+        "sub": true
+      },
+      {
+        "label": "TalentEd Perform",
+        "url": "https://regional19.tedk12.com/perform/HRTools/HRStaff_Processes.aspx"
+      },
+      {
+        "label": "Frontline",
+        "url": "https://login.frontlineeducation.com/sso/regionalsd19"
+      }
+    ]
+  },
+  {
+    "category": "My Links",
+    "items": [
+      {
+        "label": "E.O. Smith Homepage",
+        "url": "https://www.eosmith.org/"
+      },
+      {
+        "label": "GoGuardian - Teacher",
+        "url": "https://teacher.goguardian.com/"
+      },
+      {
+        "label": "CT SEDS",
+        "url": "https://ctseds.ct.gov/CTRegion19"
+      },
+      {
+        "label": "Naviance",
+        "url": "https://id.naviance.com/"
+      },
+      {
+        "label": "Learn Platform",
+        "url": "https://ctedtech.app.learnplatform.com/users/sign_in",
+        "note": "Check apps for Student Data Privacy"
+      },
+      {
+        "label": "Request to pilot a New Educational App",
+        "url": "https://eosmith.instructure.com/courses/62/files/89757/download?wrap=1"
+      }
+    ]
+  },
+  {
+    "category": "Apps",
+    "items": [
+      {
+        "label": "E.O. Smith Custom Apps",
+        "url": "",
+        "note": "Must be logged into your school Chrome account"
+      },
+      {
+        "label": "Behavioral Referral Form",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec",
+        "sub": true
+      },
+      {
+        "label": "Behavioral Referrals Teacher Dashboard",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec?page=teacher",
+        "sub": true
+      },
+      {
+        "label": "Request for Student Support",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbyr_tcVFTBaD4Zdsu7vGWeeEn3I0EuAJsQ4HvTsEDFjTxTtuHGfxQzAwVQapYoRQJC_/exec",
+        "sub": true
+      },
+      {
+        "label": "Score Portal",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxMZWxDxUXYQzIcKa9fs7h74QyDNdYU8V5hwdUllvA01t8gNkhg06c8sRgP8ykAnIC5/exec",
+        "sub": true
+      },
+      {
+        "label": "Accountabilities Submission/Teacher Dashboard",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzyStulOZouFp25SS3zLS1THMSg-OqvhNEIqX_N1B_r6NylmzXuCF1PMzVV0BZsn3zZNQ/exec?as=",
+        "sub": true
+      },
+      {
+        "label": "Lost & Found",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbz-cqJlFRqiDSzsYctIME9GcVmU4oUPVaJTMcnCAqQatjvpbWb2YPMb3FmBtb0oRFEt/exec",
+        "sub": true
+      },
+      {
+        "label": "QR Code Generator",
+        "url": "https://eosmithhs.github.io/E.O.-Smith-QR-Code-Creator/"
+      },
+      {
+        "label": "Exit Ticket Creator",
+        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxBlyYwkxlGDwyMPR3HE8sWGV9WEXYir84j-JDSU4_fkYCeptTMWLeiICLMQXviCPHx/exec"
+      },
+      {
+        "label": "PDF Reader w/ Text Highlighting",
+        "url": "https://eosmithhs.github.io/PDF-Reader-for-EOS/"
+      },
+      {
+        "label": "Homepage Creation Wizard",
+        "url": "https://scriptingforschools.org/HomepageWizard.html"
+      }
+    ]
+  },
+  {
+    "category": "AI Tools",
+    "items": [
+      {
+        "label": "AI Resources",
+        "url": "https://eosmith.instructure.com/courses/62/pages/ai-at-eos"
+      },
+      {
+        "label": "Google AI Tools",
+        "url": ""
+      },
+      {
+        "label": "Gemini",
+        "url": "https://gemini.google.com/app",
+        "sub": true
+      },
+      {
+        "label": "NotebookLM",
+        "url": "https://notebooklm.google/",
+        "sub": true
+      },
+      {
+        "label": "Learn About",
+        "url": "https://learning.google.com/experiments/learn-about?src=signup",
+        "sub": true
+      },
+      {
+        "label": "Storybook",
+        "url": "https://gemini.google/overview/storybook/",
+        "sub": true
+      },
+      {
+        "label": "Guided Learning",
+        "url": "https://gemini.google.com/guided-learning",
+        "sub": true
+      },
+      {
+        "label": "ChatGPT",
+        "url": "https://chatgpt.com/"
+      },
+      {
+        "label": "Canva",
+        "url": "https://www.canva.com/"
+      }
+    ]
+  }
+];
+
+var DEFAULT_TODOS = [];
+
+var DEFAULT_DOCS = [
+  {
+    "label": "2026-27 School Calendar",
+    "url": "https://drive.google.com/file/d/1t1m4sCpvosOr2M1aEtGIVLtRWMYuxDFU/view?usp=sharing"
+  },
+  {
+    "label": "Daily Schedule",
+    "url": "https://drive.google.com/file/d/1pN5-FeciZ3LMlrOtbkjtfX_iLKkwLc6z/view?usp=sharing"
+  },
+  {
+    "label": "Staff Phone Directory",
+    "url": "https://drive.google.com/file/d/18j2Gw6kStiQHXz2DDT0As6uIfwdPyu6D/view?usp=sharing"
+  },
+  {
+    "label": "Request - Professional Leave",
+    "url": "https://eosmith.instructure.com/courses/62/files/1501/download?wrap=1"
+  },
+  {
+    "label": "Request - Personal Leave",
+    "url": "https://eosmith.instructure.com/courses/62/files/1500/download?wrap=1"
+  },
+  {
+    "label": "Calendar Handbook",
+    "url": "https://eosmith.instructure.com/courses/62/external_tools/16093"
+  },
+  {
+    "label": "Program of Studies",
+    "url": "https://eosmith.instructure.com/courses/62/pages/program-of-studies"
+  }
+];
+
+var DEFAULT_LAYOUT = {
+  "todo": 0,
+  "docs": 3,
+  "calendar": 6
+};
+
+/**
+ * Turns whatever was pasted into CALENDAR_EMBED_URL -- a full <iframe>
+ * embed code, a calendar.google.com embed URL, or a bare Calendar ID --
+ * into a clean embed URL. Returns '' for anything unusable, including
+ * URLs that are not calendar.google.com (this iframe loads on your
+ * homepage every day, so no other sites are allowed).
+ */
+function normalizeCalendarUrl_(input) {
+  var s = (input || '').toString().trim();
+  if (!s) return '';
+
+  // Full embed code pasted? Pull out the src attribute.
+  if (/<iframe/i.test(s)) {
+    var m = s.match(/src\s*=\s*["']([^"']+)["']/i);
+    if (!m) return '';
+    s = m[1];
+  }
+  s = s.replace(/&amp;/g, '&').trim();
+
+  if (/^https:\/\/calendar\.google\.com\/calendar\/embed\?/i.test(s)) {
+    // Already a proper embed URL.
+  } else if (/^https?:\/\//i.test(s)) {
+    return ''; // some other website -- refuse
+  } else {
+    // Treat it as a Calendar ID / address. If it was copied already
+    // percent-encoded (e.g. ...%40group.calendar.google.com), decode
+    // first so we don't double-encode.
+    if (s.indexOf('%') !== -1) {
+      try { s = decodeURIComponent(s); } catch (e) { /* keep as-is */ }
+    }
+    s = 'https://calendar.google.com/calendar/embed?src=' + encodeURIComponent(s);
+  }
+
+  if (s.indexOf('ctz=') === -1) {
+    s += '&ctz=' + encodeURIComponent(Session.getScriptTimeZone());
+  }
+  return s;
+}
+
+/**
+ * Serves the homepage with the current links (saved copy if it exists,
+ * otherwise the defaults above) and the CONFIG branding values.
+ */
+function doGet() {
+  var template = HtmlService.createTemplateFromFile('Index');
+
+  var cfg = JSON.parse(JSON.stringify(CONFIG));
+  // Logo.gs is optional; fall back to an initials badge when absent.
+  cfg.LOGO_DATA_URI = (typeof LOGO_DATA_URI !== 'undefined') ? LOGO_DATA_URI : '';
+  cfg.CALENDAR_EMBED_URL = normalizeCalendarUrl_(CONFIG.CALENDAR_EMBED_URL);
+
+  // Replace "</" so injected JSON can never prematurely close a <script> tag.
+  template.configJson = JSON.stringify(cfg).replace(/<\//g, '<\\/');
+  template.dataJson = getDataJson_().replace(/<\//g, '<\\/');
+
+  return template
+    .evaluate()
+    .setTitle(CONFIG.SCHOOL_NAME_PRIMARY + ' — ' + CONFIG.TAGLINE)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+/**
+ * Returns the saved data JSON from Drive ({links, todos, docs}), or the
+ * defaults if nothing has been saved yet. Read-only: never creates the
+ * Drive file. Older files that stored a bare array of link categories
+ * are migrated automatically.
+ */
+function getDataJson_() {
+  var raw = null;
+  var fileId = PropertiesService.getScriptProperties().getProperty('LINKS_FILE_ID');
+  if (fileId) {
+    try {
+      raw = DriveApp.getFileById(fileId).getBlob().getDataAsString();
+    } catch (e) {
+      // File was deleted; fall through to defaults.
+    }
+  }
+  var parsed = null;
+  if (raw) {
+    try { parsed = JSON.parse(raw); } catch (e) { parsed = null; }
+  }
+  if (Array.isArray(parsed)) {
+    parsed = { links: parsed }; // migrate pre-v1.2 files (links only)
+  }
+  if (!parsed || typeof parsed !== 'object') parsed = {};
+  if (!Array.isArray(parsed.links)) parsed.links = DEFAULT_LINKS;
+  if (!Array.isArray(parsed.todos)) parsed.todos = DEFAULT_TODOS;
+  if (!Array.isArray(parsed.docs)) parsed.docs = DEFAULT_DOCS;
+  if (!parsed.layout || typeof parsed.layout !== 'object') parsed.layout = JSON.parse(JSON.stringify(DEFAULT_LAYOUT));
+  return JSON.stringify(parsed);
+}
+
+/**
+ * Saves all page data ({links, todos, docs}). Called from the client via
+ * google.script.run. Validates the JSON before writing so a client bug
+ * can't corrupt storage.
+ */
+function saveData(json) {
+  var parsed = JSON.parse(json); // throws to the client's failure handler if invalid
+  if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.links)) {
+    throw new Error('Data must be an object with a links array.');
+  }
+  var props = PropertiesService.getScriptProperties();
+  var fileId = props.getProperty('LINKS_FILE_ID');
+  var file = null;
+  if (fileId) {
+    try {
+      file = DriveApp.getFileById(fileId);
+    } catch (e) {
+      file = null;
+    }
+  }
+  if (file) {
+    file.setContent(json);
+  } else {
+    file = DriveApp.createFile(STORAGE_FILE_NAME, json, MimeType.PLAIN_TEXT);
+    props.setProperty('LINKS_FILE_ID', file.getId());
+  }
+  return { ok: true };
+}
+</script>
+<script type="text/plain" id="code-index"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #CC0000;
+      --dark: #0B0B0C;
+      --ink: #1C1C1E;
+      --ink-soft: #5B5B60;
+      --paper: #F5F4F2;
+      --card: #FFFFFF;
+      --line: #E4E2DE;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ---------- Header band ---------- */
+    .masthead {
+      background: var(--dark);
+      border-bottom: 5px solid var(--primary);
+    }
+    .masthead-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 22px 28px 18px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .masthead img {
+      width: 96px;
+      height: auto;
+      margin-bottom: -26px; /* logo overhangs the accent rule */
+      position: relative;
+      z-index: 2;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.45));
+    }
+    /* Initials badge shown when no Logo.gs is installed */
+    .initials-badge {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--dark);
+      border: 3px solid var(--primary);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.04em;
+    }
+    .masthead-titles h1 {
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 600;
+      font-size: 26px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      line-height: 1.1;
+    }
+    .masthead-titles h1 .red { color: var(--primary); }
+    .masthead-titles .subtitle {
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #B9B9BE;
+      margin-top: 4px;
+    }
+
+    /* ---------- Toolbar ---------- */
+    .toolbar {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 28px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .greeting { font-size: 14px; color: var(--ink-soft); }
+    .toolbar-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    #filter {
+      width: 280px;
+      max-width: 100%;
+      padding: 10px 14px;
+      font-size: 15px;
+      font-family: inherit;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--card);
+      color: var(--ink);
+    }
+    #filter:focus {
+      border-color: var(--primary);
+      outline: 2px solid rgba(204, 0, 0, 0.25);
+    }
+
+    .btn {
+      padding: 10px 16px;
+      font-size: 14px;
+      font-family: inherit;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .btn:hover { border-color: var(--ink-soft); }
+    .btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+    .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #FFFFFF;
+    }
+    .btn-primary:hover { background: #A80000; border-color: #A80000; }
+    .btn-primary:disabled { opacity: 0.6; cursor: default; }
+    .btn-small {
+      padding: 4px 8px;
+      font-size: 12px;
+      line-height: 1;
+    }
+
+    /* ---------- Cards ---------- */
+    .grid {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 18px 28px 56px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+    /* Exactly four columns once there's room for them */
+    @media (min-width: 1240px) {
+      .grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    /* Content can never widen a card's column */
+    .grid > .card { min-width: 0; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px 20px 12px;
+    }
+    .card h2 {
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--primary);
+      margin-bottom: 6px;
+    }
+    .card h2 {
+      cursor: grab;
+    }
+    .card h2:active { cursor: grabbing; }
+    .card h2 .grip {
+      float: right;
+      color: var(--ink-soft);
+      font-size: 13px;
+      letter-spacing: 2px;
+      user-select: none;
+    }
+    .card.dragging { opacity: 0.45; }
+    .card.drag-over { outline: 3px dashed var(--primary); outline-offset: 3px; }
+    .card ul { list-style: none; }
+
+    /* ---------- Calendar card (full width) ---------- */
+    .card.calendar-card {
+      grid-column: 1 / -1;
+      padding-bottom: 18px;
+    }
+    .calendar-frame {
+      display: block;
+      width: 100%;
+      height: 600px;
+      border: 0;
+      margin-top: 8px;
+      border-radius: 4px;
+      background: #FFFFFF;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+    }
+    .row:last-child { border-bottom: none; }
+
+    .row .app-header {
+      font-weight: 700;
+      font-size: 14.5px;
+      color: var(--dark);
+      padding: 12px 6px 6px;
+    }
+    .row a {
+      flex: 1;
+      display: block;
+      padding: 10px 6px;
+      font-size: 15px;
+      color: var(--ink);
+      text-decoration: none;
+      border-radius: 4px;
+      min-width: 0;
+    }
+    .row a:hover, .row a:focus-visible {
+      color: var(--primary);
+      background: rgba(204, 0, 0, 0.05);
+    }
+    .row a:focus-visible { outline: 2px solid var(--primary); outline-offset: -2px; }
+    .row.sub { margin-left: 18px; }
+    .row.sub a { font-size: 14.5px; }
+    .row .note {
+      display: block;
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      font-weight: 400;
+      margin-top: 2px;
+    }
+    .row .note-only {
+      flex: 1;
+      padding: 10px 6px;
+      font-size: 14px;
+      color: var(--ink-soft);
+    }
+
+    .copy-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+    .copy-btn:hover { background: rgba(204, 0, 0, 0.08); color: var(--primary); }
+    .copy-btn:focus-visible { outline: 2px solid var(--primary); }
+    .copy-btn svg { width: 15px; height: 15px; }
+
+    /* ---------- Special cards: To Do + Documents ---------- */
+    .icon-btn {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      border: none;
+      border-radius: 5px;
+      background: transparent;
+      color: var(--ink-soft);
+      cursor: pointer;
+    }
+    .icon-btn:hover { background: rgba(0, 0, 0, 0.06); color: var(--primary); }
+    .icon-btn:focus-visible { outline: 2px solid var(--primary); }
+    .icon-btn svg { width: 15px; height: 15px; }
+    .todo-check { width: 17px; height: 17px; accent-color: var(--primary); margin-left: 4px; flex: 0 0 auto; cursor: pointer; }
+    .todo-main { flex: 1; min-width: 0; padding: 9px 6px; font-size: 15px; }
+    .todo-text.done { text-decoration: line-through; color: var(--ink-soft); }
+    .todo-main .note { display: block; }
+    .add-row { display: flex; gap: 6px; padding: 10px 0 6px; align-items: center; }
+    .add-row input {
+      flex: 1;
+      min-width: 0;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+    }
+    .add-row input:focus { border-color: var(--primary); outline: none; }
+    .inline-edit { flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 8px 0; }
+    .inline-edit input {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+    }
+    .inline-edit input:focus { border-color: var(--primary); outline: none; }
+    .inline-edit-btns { display: flex; gap: 6px; }
+    .doc-row a { flex: 1; }
+    .cat-fixed {
+      flex: 1;
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--dark);
+      padding: 6px 0;
+    }
+
+    /* ---------- Edit mode ---------- */
+    .edit-note {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 28px;
+      font-size: 13.5px;
+      color: var(--ink-soft);
+    }
+    .card.editing { border-color: var(--primary); }
+    .cat-head-edit {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--primary);
+      margin-bottom: 8px;
+    }
+    .cat-head-edit input {
+      flex: 1;
+      font-family: 'Oswald', 'Arial Narrow', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 8px;
+      min-width: 0;
+    }
+    .edit-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 4px 6px;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .edit-row .fields { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+    .edit-row input[type="text"], .edit-row input[type="url"] {
+      width: 100%;
+      font-family: inherit;
+      font-size: 13.5px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 6px 8px;
+    }
+    .edit-row input:focus, .cat-head-edit input:focus {
+      border-color: var(--primary);
+      outline: 1px solid rgba(204,0,0,0.3);
+    }
+    .edit-row .controls {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      align-items: stretch;
+    }
+    .edit-row label.sub-toggle {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12.5px;
+      color: var(--ink-soft);
+      padding: 2px 0;
+      cursor: pointer;
+    }
+    .add-item-btn { margin: 8px 0 4px; width: 100%; }
+    .add-cat-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 120px;
+    }
+
+    /* ---------- Toast ---------- */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--dark);
+      color: #FFFFFF;
+      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: 6px;
+      border-left: 4px solid var(--primary);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .hidden { display: none !important; }
+
+    #no-results {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 8px 28px 56px;
+      color: var(--ink-soft);
+      font-size: 15px;
+    }
+
+    @media (max-width: 560px) {
+      .masthead img { width: 72px; margin-bottom: -18px; }
+      .masthead-titles h1 { font-size: 20px; }
+      .toolbar { padding-top: 32px; }
+      #filter { width: 100%; }
+      .calendar-frame { height: 460px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .row a, .copy-btn, .btn { transition: color 0.12s ease, background 0.12s ease, border-color 0.12s ease; }
+      #toast { transition: opacity 0.18s ease, transform 0.18s ease; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div id="logo-slot"></div>
+      <div class="masthead-titles">
+        <h1><span id="name-primary"></span> <span class="red" id="name-accent"></span></h1>
+        <div class="subtitle" id="tagline"></div>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="greeting" id="greeting"></div>
+    <div class="toolbar-actions">
+      <input type="search" id="filter" placeholder="Type to filter links&hellip;" aria-label="Filter links">
+      <button type="button" class="btn" id="edit-btn">Edit</button>
+      <button type="button" class="btn btn-primary hidden" id="save-btn">Save</button>
+      <button type="button" class="btn hidden" id="cancel-btn">Cancel</button>
+    </div>
+  </div>
+  <p class="edit-note hidden" id="edit-note">
+    Leave URL blank to make a bold app header. Check &ldquo;indent&rdquo; for sub-links under a header.
+    A row with a note but no URL shows as plain text.
+  </p>
+
+  <main class="grid" id="grid"></main>
+  <p id="no-results" class="hidden">No links match. Clear the filter to see everything.</p>
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    var APP_CONFIG = <?!= configJson ?>;
+    var DATA = <?!= dataJson ?>;
+    var LINKS = DATA.links || [];
+    var TODOS = DATA.todos || [];
+    var DOCS = DATA.docs || [];
+    var LAYOUT = DATA.layout || { todo: 0, docs: 1 };
+    var FEATURE_FLAGS = {
+      SHOW_TODO: APP_CONFIG.SHOW_TODO !== false,
+      SHOW_DOCS: APP_CONFIG.SHOW_DOCS !== false,
+      // Calendar needs both the switch on AND a usable URL; the server
+      // sends '' when the configured value couldn't be normalized.
+      SHOW_CALENDAR: APP_CONFIG.SHOW_CALENDAR === true && !!APP_CONFIG.CALENDAR_EMBED_URL
+    };
+    var editMode = false;
+    var draft = null; // working copy while editing
+    var draftDocs = null; // working copy of Important Documents
+
+    var COPY_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+
+    var PENCIL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>';
+    var TRASH_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>';
+
+    function escapeHtml(str) {
+      return String(str == null ? '' : str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // ============================================================
+    // VIEW MODE
+    // ============================================================
+    // Builds the display order: link categories in LINKS order, with the
+    // special cards slotted at their saved positions (clamped if the
+    // category count changed since the layout was saved).
+    function buildSequence() {
+      var flags = [];
+      if (FEATURE_FLAGS.SHOW_TODO) flags.push('todo');
+      if (FEATURE_FLAGS.SHOW_DOCS) flags.push('docs');
+      if (FEATURE_FLAGS.SHOW_CALENDAR) flags.push('calendar');
+      var total = LINKS.length + flags.length;
+      var seq = new Array(total);
+      for (var f = 0; f < flags.length; f++) {
+        var want = LAYOUT[flags[f]];
+        if (typeof want !== 'number' || want < 0) {
+          want = (flags[f] === 'calendar') ? total - 1 : f;
+        }
+        if (want >= total) want = total - 1;
+        while (seq[want] !== undefined) want = (want + 1) % total;
+        seq[want] = flags[f];
+      }
+      var li = 0;
+      for (var s = 0; s < total; s++) {
+        if (seq[s] === undefined) seq[s] = li++;
+      }
+      return seq;
+    }
+
+    function buildCategoryCard(i) {
+      var cat = LINKS[i];
+      var html = '<section class="card" data-kind="link" data-ci="' + i + '" data-category="' + escapeHtml((cat.category || '').toLowerCase()) + '">';
+      html += '<h2 draggable="true" title="Drag to rearrange">' + escapeHtml(cat.category) + '<span class="grip" aria-hidden="true">&#8942;&#8942;</span></h2><ul>';
+      var currentHeader = '';
+      for (var j = 0; j < (cat.items || []).length; j++) {
+        var item = cat.items[j];
+        var isHeader = !item.url && !item.sub;
+        if (isHeader) {
+          currentHeader = (item.label || '').toLowerCase();
+        } else if (!item.sub) {
+          currentHeader = ''; // a plain link breaks the header grouping
+        }
+        var searchText = ((item.label || '') + ' ' + (item.note || '')).toLowerCase();
+        var rowClass = 'row' + (item.sub ? ' sub' : '');
+        html += '<li class="' + rowClass + '" data-label="' + escapeHtml(searchText) + '" data-name="' + escapeHtml(isHeader ? currentHeader : '') + '" data-parent="' + escapeHtml(item.sub ? currentHeader : '') + '" data-header="' + (isHeader ? '1' : '0') + '">';
+        if (isHeader) {
+          html += '<span class="app-header">' + escapeHtml(item.label) + '</span>';
+        } else if (item.url) {
+          html += '<a href="' + escapeHtml(item.url) + '" target="_blank" rel="noopener">' + escapeHtml(item.label);
+          if (item.note) html += '<span class="note">' + escapeHtml(item.note) + '</span>';
+          html += '</a>';
+          html += '<button type="button" class="copy-btn" data-url="' + escapeHtml(item.url) + '" title="Copy URL" aria-label="Copy URL for ' + escapeHtml(item.label) + '">' + COPY_ICON + '</button>';
+        } else {
+          html += '<span class="note-only">' + escapeHtml(item.label) + (item.note ? ' &mdash; ' + escapeHtml(item.note) : '') + '</span>';
+        }
+        html += '</li>';
+      }
+      html += '</ul></section>';
+      return html;
+    }
+
+    function buildCalendarCard() {
+      var title = APP_CONFIG.CALENDAR_TITLE || 'School Calendar';
+      var html = '<section class="card special-card calendar-card" data-kind="calendar" data-category="' + escapeHtml(title.toLowerCase()) + '">';
+      html += '<h2 draggable="true" title="Drag to rearrange">' + escapeHtml(title) + '<span class="grip" aria-hidden="true">&#8942;&#8942;</span></h2>';
+      html += '<iframe class="calendar-frame" loading="lazy" src="' + escapeHtml(APP_CONFIG.CALENDAR_EMBED_URL) + '" title="' + escapeHtml(title) + '"></iframe>';
+      html += '</section>';
+      return html;
+    }
+
+    function renderView() {
+      var grid = document.getElementById('grid');
+      var seq = buildSequence();
+      var html = '';
+      for (var s = 0; s < seq.length; s++) {
+        if (seq[s] === 'todo') html += buildTodoCard();
+        else if (seq[s] === 'docs') html += buildDocsCard();
+        else if (seq[s] === 'calendar') html += buildCalendarCard();
+        else html += buildCategoryCard(seq[s]);
+      }
+      grid.innerHTML = html;
+
+      var copyButtons = grid.querySelectorAll('.copy-btn');
+      for (var k = 0; k < copyButtons.length; k++) {
+        copyButtons[k].addEventListener('click', onCopyClick);
+      }
+      setupCardDrag();
+      applyFilter();
+    }
+
+    function onCopyClick(e) {
+      var url = e.currentTarget.getAttribute('data-url');
+      copyText(url);
+    }
+
+    function copyText(text) {
+      var done = function () { showToast('URL copied'); };
+      var fallback = function () {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          done();
+        } catch (err) {
+          showToast('Copy failed — select and copy manually');
+        }
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } else {
+        fallback();
+      }
+    }
+
+    // ============================================================
+    // DRAG TO REARRANGE TILES (view mode only)
+    // Drag a card by its title bar to reorder; the new order saves
+    // immediately. Touch devices: use Edit mode's arrow buttons.
+    // ============================================================
+    var dragFromIndex = null;
+
+    function setupCardDrag() {
+      var cards = document.querySelectorAll('#grid .card');
+      for (var i = 0; i < cards.length; i++) {
+        var h2 = cards[i].querySelector('h2');
+        h2.addEventListener('dragstart', onCardDragStart);
+        h2.addEventListener('dragend', onCardDragEnd);
+        cards[i].addEventListener('dragover', onCardDragOver);
+        cards[i].addEventListener('dragleave', onCardDragLeave);
+        cards[i].addEventListener('drop', onCardDrop);
+      }
+    }
+
+    function cardOf(el) {
+      while (el && (!el.classList || !el.classList.contains('card'))) el = el.parentNode;
+      return el;
+    }
+
+    function visualIndexOf(card) {
+      var cards = document.querySelectorAll('#grid .card');
+      for (var i = 0; i < cards.length; i++) if (cards[i] === card) return i;
+      return -1;
+    }
+
+    // Reads the on-screen card order as tokens: 'todo', 'docs',
+    // 'calendar', or a numeric index into the current LINKS array.
+    function domSequence() {
+      var cards = document.querySelectorAll('#grid .card');
+      var seq = [];
+      for (var i = 0; i < cards.length; i++) {
+        var kind = cards[i].getAttribute('data-kind');
+        seq.push(kind === 'link' ? parseInt(cards[i].getAttribute('data-ci'), 10) : kind);
+      }
+      return seq;
+    }
+
+    // Commits a token sequence: reorders LINKS and records the special
+    // cards' visual positions in LAYOUT.
+    function applySequence(seq) {
+      var newLinks = [];
+      for (var i = 0; i < seq.length; i++) {
+        if (seq[i] === 'todo') LAYOUT.todo = i;
+        else if (seq[i] === 'docs') LAYOUT.docs = i;
+        else if (seq[i] === 'calendar') LAYOUT.calendar = i;
+        else newLinks.push(LINKS[seq[i]]);
+      }
+      LINKS = newLinks;
+    }
+
+    function onCardDragStart(e) {
+      if (editMode) { e.preventDefault(); return; }
+      var card = cardOf(e.target);
+      dragFromIndex = visualIndexOf(card);
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', String(dragFromIndex)); // required by Firefox
+      card.classList.add('dragging');
+    }
+
+    function onCardDragEnd(e) {
+      var card = cardOf(e.target);
+      if (card) card.classList.remove('dragging');
+      var overs = document.querySelectorAll('.card.drag-over');
+      for (var i = 0; i < overs.length; i++) overs[i].classList.remove('drag-over');
+      dragFromIndex = null;
+    }
+
+    function onCardDragOver(e) {
+      if (dragFromIndex === null) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      var card = cardOf(e.target);
+      if (card && visualIndexOf(card) !== dragFromIndex) card.classList.add('drag-over');
+    }
+
+    function onCardDragLeave(e) {
+      var card = cardOf(e.target);
+      if (card && !card.contains(e.relatedTarget)) card.classList.remove('drag-over');
+    }
+
+    function onCardDrop(e) {
+      e.preventDefault();
+      var card = cardOf(e.target);
+      var to = visualIndexOf(card);
+      var from = dragFromIndex;
+      dragFromIndex = null;
+      if (from === null || from < 0 || to < 0 || from === to) return;
+      var seq = domSequence();
+      var moved = seq.splice(from, 1)[0];
+      seq.splice(to, 0, moved);
+      applySequence(seq);
+      renderView();
+      saveAll('Order saved');
+    }
+
+
+    function saveAll(msg) {
+      google.script.run
+        .withSuccessHandler(function () { showToast(msg || 'Saved'); })
+        .withFailureHandler(function (err) {
+          showToast('Not saved: ' + (err && err.message ? err.message : 'unknown error'));
+        })
+        .saveData(JSON.stringify({ links: LINKS, todos: TODOS, docs: DOCS, layout: LAYOUT }));
+    }
+
+    // ============================================================
+    // SPECIAL CARDS: TO DO + IMPORTANT DOCUMENTS (view mode only)
+    // These render first in the grid and are not draggable.
+    // ============================================================
+    var todoEditIndex = null;
+
+    function buildTodoCard() {
+      var html = '<section class="card special-card" data-kind="todo" data-category="to do tasks"><h2 draggable="true" title="Drag to rearrange">To Do<span class="grip" aria-hidden="true">&#8942;&#8942;</span></h2><ul>';
+      for (var i = 0; i < TODOS.length; i++) {
+        var t = TODOS[i];
+        var lbl = escapeHtml(((t.text || '') + ' ' + (t.note || '')).toLowerCase());
+        if (todoEditIndex === i) {
+          html += '<li class="row todo-row" data-label="' + lbl + '"><div class="inline-edit">';
+          html += '<input type="text" id="todo-edit-text" value="' + escapeHtml(t.text || '') + '" aria-label="Task">';
+          html += '<input type="text" id="todo-edit-note" value="' + escapeHtml(t.note || '') + '" placeholder="Note (optional)" aria-label="Note">';
+          html += '<div class="inline-edit-btns"><button type="button" class="btn btn-small" data-taction="save-edit">Save</button>';
+          html += '<button type="button" class="btn btn-small" data-taction="cancel-edit">Cancel</button></div></div></li>';
+        } else {
+          html += '<li class="row todo-row" data-label="' + lbl + '">';
+          html += '<input type="checkbox" class="todo-check" data-ti="' + i + '" aria-label="Mark complete"' + (t.done ? ' checked' : '') + '>';
+          html += '<div class="todo-main"><span class="todo-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.text) + '</span>';
+          if (t.note) html += '<span class="note">' + escapeHtml(t.note) + '</span>';
+          html += '</div>';
+          html += '<button type="button" class="icon-btn" data-taction="edit" data-ti="' + i + '" title="Edit" aria-label="Edit task">' + PENCIL_ICON + '</button>';
+          html += '<button type="button" class="icon-btn" data-taction="del" data-ti="' + i + '" title="Delete" aria-label="Delete task">' + TRASH_ICON + '</button>';
+          html += '</li>';
+        }
+      }
+      html += '<li class="row add-row" data-always="1" data-label="">';
+      html += '<input type="text" id="todo-new" placeholder="Add a task&hellip;" aria-label="New task">';
+      html += '<button type="button" class="btn btn-small" data-taction="add">Add</button></li>';
+      html += '</ul></section>';
+      return html;
+    }
+
+    function buildDocsCard() {
+      var html = '<section class="card special-card" data-kind="docs" data-category="important documents"><h2 draggable="true" title="Drag to rearrange">Important Documents<span class="grip" aria-hidden="true">&#8942;&#8942;</span></h2><ul>';
+      for (var i = 0; i < DOCS.length; i++) {
+        var d = DOCS[i];
+        html += '<li class="row doc-row" data-label="' + escapeHtml((d.label || '').toLowerCase()) + '">';
+        html += '<a href="' + escapeHtml(d.url) + '" target="_blank" rel="noopener">' + escapeHtml(d.label) + '</a>';
+        html += '<button type="button" class="icon-btn" data-daction="open" data-url="' + escapeHtml(d.url) + '" title="Open / edit" aria-label="Open ' + escapeHtml(d.label) + '">' + PENCIL_ICON + '</button>';
+        html += '<button type="button" class="icon-btn" data-daction="del" data-di="' + i + '" title="Remove" aria-label="Remove ' + escapeHtml(d.label) + '">' + TRASH_ICON + '</button>';
+        html += '</li>';
+      }
+      if (DOCS.length === 0) {
+        html += '<li class="row" data-always="1" data-label=""><span class="note-only">No documents yet \u2014 add them with the Edit button.</span></li>';
+      }
+      html += '</ul></section>';
+      return html;
+    }
+
+    function addTodo() {
+      var input = document.getElementById('todo-new');
+      var text = input.value.replace(/^\s+|\s+$/g, '');
+      if (!text) { input.focus(); return; }
+      TODOS.push({ text: text, note: '', done: false });
+      renderView();
+      var again = document.getElementById('todo-new');
+      if (again) again.focus();
+      saveAll();
+    }
+
+    function commitTodoEdit() {
+      var i = todoEditIndex;
+      if (i === null || !TODOS[i]) return;
+      var text = document.getElementById('todo-edit-text').value.replace(/^\s+|\s+$/g, '');
+      var note = document.getElementById('todo-edit-note').value.replace(/^\s+|\s+$/g, '');
+      if (text) TODOS[i].text = text;
+      TODOS[i].note = note;
+      todoEditIndex = null;
+      renderView();
+      saveAll();
+    }
+
+    function onSpecialClick(e) {
+      if (editMode) return;
+      var btn = e.target.closest ? e.target.closest('[data-taction],[data-daction]') : null;
+      if (!btn) return;
+      var t = btn.getAttribute('data-taction');
+      var d = btn.getAttribute('data-daction');
+      if (t === 'add') {
+        addTodo();
+      } else if (t === 'del') {
+        TODOS.splice(parseInt(btn.getAttribute('data-ti'), 10), 1);
+        todoEditIndex = null;
+        renderView();
+        saveAll();
+      } else if (t === 'edit') {
+        todoEditIndex = parseInt(btn.getAttribute('data-ti'), 10);
+        renderView();
+        var el = document.getElementById('todo-edit-text');
+        if (el) el.focus();
+      } else if (t === 'save-edit') {
+        commitTodoEdit();
+      } else if (t === 'cancel-edit') {
+        todoEditIndex = null;
+        renderView();
+      } else if (d === 'del') {
+        DOCS.splice(parseInt(btn.getAttribute('data-di'), 10), 1);
+        renderView();
+        saveAll();
+      } else if (d === 'open') {
+        window.open(btn.getAttribute('data-url'), '_blank');
+      }
+    }
+
+    function onSpecialChange(e) {
+      if (editMode) return;
+      var el = e.target;
+      if (el.classList && el.classList.contains('todo-check')) {
+        var i = parseInt(el.getAttribute('data-ti'), 10);
+        if (TODOS[i]) TODOS[i].done = el.checked;
+        renderView();
+        saveAll();
+      }
+    }
+
+    function onSpecialKey(e) {
+      if (editMode || e.key !== 'Enter') return;
+      var id = e.target.id;
+      if (id === 'todo-new') { e.preventDefault(); addTodo(); }
+      else if (id === 'todo-edit-text' || id === 'todo-edit-note') { e.preventDefault(); commitTodoEdit(); }
+    }
+
+    // ============================================================
+    // FILTER (view mode only)
+    // ============================================================
+    function applyFilter() {
+      if (editMode) return;
+      var q = document.getElementById('filter').value.trim().toLowerCase();
+      var cards = document.querySelectorAll('.card');
+      var anyVisible = false;
+      for (var i = 0; i < cards.length; i++) {
+        var card = cards[i];
+        var catMatch = card.getAttribute('data-category').indexOf(q) !== -1;
+
+        // The calendar card has no link rows; it shows when the filter
+        // is empty or when the query matches its title.
+        if (card.getAttribute('data-kind') === 'calendar') {
+          var showCal = q === '' || catMatch;
+          card.classList.toggle('hidden', !showCal);
+          if (showCal) anyVisible = true;
+          continue;
+        }
+
+        var rows = card.querySelectorAll('li');
+        var visibleCount = 0;
+
+        // Pass 1: which headers match the query? Keyed by data-name.
+        var headerMatches = {};
+        for (var j = 0; j < rows.length; j++) {
+          if (rows[j].getAttribute('data-header') === '1' &&
+              rows[j].getAttribute('data-label').indexOf(q) !== -1) {
+            headerMatches[rows[j].getAttribute('data-name')] = true;
+          }
+        }
+
+        // Pass 2: non-header rows. A row shows if it, its parent header,
+        // or the category matches.
+        var childVisible = {};
+        for (var j2 = 0; j2 < rows.length; j2++) {
+          var row = rows[j2];
+          if (row.getAttribute('data-header') === '1') continue;
+          if (row.getAttribute('data-always') === '1') {
+            if (q === '') visibleCount++; // add-rows keep an empty card visible
+            continue;
+          }
+          var parent = row.getAttribute('data-parent') || '';
+          var selfMatch = (row.getAttribute('data-label') || '').indexOf(q) !== -1;
+          var parentMatch = parent !== '' && headerMatches[parent] === true;
+          var show = q === '' || catMatch || selfMatch || parentMatch;
+          row.classList.toggle('hidden', !show);
+          if (show) {
+            visibleCount++;
+            if (parent) childVisible[parent] = true;
+          }
+        }
+
+        // Pass 3: headers. A header shows if it matches, the category
+        // matches, or any of its children are visible.
+        for (var j3 = 0; j3 < rows.length; j3++) {
+          var hrow = rows[j3];
+          if (hrow.getAttribute('data-header') !== '1') continue;
+          var name = hrow.getAttribute('data-name');
+          var show2 = q === '' || catMatch ||
+                      hrow.getAttribute('data-label').indexOf(q) !== -1 ||
+                      childVisible[name] === true;
+          hrow.classList.toggle('hidden', !show2);
+          if (show2) visibleCount++;
+        }
+
+        card.classList.toggle('hidden', visibleCount === 0);
+        var alwaysRows = card.querySelectorAll('[data-always]');
+        for (var j4 = 0; j4 < alwaysRows.length; j4++) alwaysRows[j4].classList.remove('hidden');
+        if (visibleCount > 0) anyVisible = true;
+      }
+      document.getElementById('no-results').classList.toggle('hidden', anyVisible || editMode);
+    }
+
+    // ============================================================
+    // EDIT MODE
+    // ============================================================
+    function enterEditMode() {
+      editMode = true;
+      draft = JSON.parse(JSON.stringify(LINKS));
+      draftDocs = JSON.parse(JSON.stringify(DOCS));
+      document.getElementById('filter').value = '';
+      document.getElementById('filter').classList.add('hidden');
+      document.getElementById('edit-btn').classList.add('hidden');
+      document.getElementById('save-btn').classList.remove('hidden');
+      document.getElementById('cancel-btn').classList.remove('hidden');
+      document.getElementById('edit-note').classList.remove('hidden');
+      document.getElementById('no-results').classList.add('hidden');
+      renderEdit();
+    }
+
+    function exitEditMode() {
+      editMode = false;
+      draft = null;
+      draftDocs = null;
+      document.getElementById('filter').classList.remove('hidden');
+      document.getElementById('edit-btn').classList.remove('hidden');
+      document.getElementById('save-btn').classList.add('hidden');
+      document.getElementById('cancel-btn').classList.add('hidden');
+      document.getElementById('edit-note').classList.add('hidden');
+      renderView();
+    }
+
+    function renderEdit() {
+      var grid = document.getElementById('grid');
+      var html = '';
+      if (FEATURE_FLAGS.SHOW_DOCS) html += buildDocsEditCard();
+      for (var i = 0; i < draft.length; i++) {
+        var cat = draft[i];
+        html += '<section class="card editing" data-ci="' + i + '">';
+        html += '<div class="cat-head-edit">';
+        html += '<input type="text" value="' + escapeHtml(cat.category) + '" data-field="category" data-ci="' + i + '" aria-label="Category name">';
+        html += moveButtons('cat', i, 0, draft.length);
+        html += '<button type="button" class="btn btn-small" data-action="del-cat" data-ci="' + i + '" title="Delete category">&#10005;</button>';
+        html += '</div>';
+        for (var j = 0; j < (cat.items || []).length; j++) {
+          var item = cat.items[j];
+          html += '<div class="edit-row" data-ci="' + i + '" data-ii="' + j + '">';
+          html += '<div class="fields">';
+          html += '<input type="text" placeholder="Label" value="' + escapeHtml(item.label) + '" data-field="label" data-ci="' + i + '" data-ii="' + j + '" aria-label="Label">';
+          html += '<input type="url" placeholder="URL (blank = app header)" value="' + escapeHtml(item.url || '') + '" data-field="url" data-ci="' + i + '" data-ii="' + j + '" aria-label="URL">';
+          html += '<input type="text" placeholder="Note (optional)" value="' + escapeHtml(item.note || '') + '" data-field="note" data-ci="' + i + '" data-ii="' + j + '" aria-label="Note">';
+          html += '</div>';
+          html += '<div class="controls">';
+          html += moveButtons('item', i, j, cat.items.length);
+          html += '<button type="button" class="btn btn-small" data-action="del-item" data-ci="' + i + '" data-ii="' + j + '" title="Delete row">&#10005;</button>';
+          html += '<label class="sub-toggle"><input type="checkbox" data-field="sub" data-ci="' + i + '" data-ii="' + j + '"' + (item.sub ? ' checked' : '') + '> indent</label>';
+          html += '</div>';
+          html += '</div>';
+        }
+        html += '<button type="button" class="btn btn-small add-item-btn" data-action="add-item" data-ci="' + i + '">+ Add row</button>';
+        html += '</section>';
+      }
+      html += '<div class="add-cat-wrap"><button type="button" class="btn" data-action="add-cat">+ Add category</button></div>';
+      grid.innerHTML = html;
+    }
+
+    function buildDocsEditCard() {
+      var html = '<section class="card editing">';
+      html += '<div class="cat-head-edit"><span class="cat-fixed">Important Documents</span></div>';
+      for (var j = 0; j < draftDocs.length; j++) {
+        var d = draftDocs[j];
+        html += '<div class="edit-row">';
+        html += '<div class="fields">';
+        html += '<input type="text" placeholder="Document name" value="' + escapeHtml(d.label || '') + '" data-field="doc-label" data-ii="' + j + '" aria-label="Document name">';
+        html += '<input type="url" placeholder="Link" value="' + escapeHtml(d.url || '') + '" data-field="doc-url" data-ii="' + j + '" aria-label="Document link">';
+        html += '</div>';
+        html += '<div class="controls">';
+        html += '<button type="button" class="btn btn-small" data-action="del-doc" data-ii="' + j + '" title="Remove document">&#10005;</button>';
+        html += '</div></div>';
+      }
+      html += '<button type="button" class="btn btn-small add-item-btn" data-action="add-doc">+ Add document</button>';
+      html += '</section>';
+      return html;
+    }
+
+    function moveButtons(kind, ci, ii, len) {
+      var idx = kind === 'cat' ? ci : ii;
+      var up = '<button type="button" class="btn btn-small" data-action="move-' + kind + '" data-dir="-1" data-ci="' + ci + '" data-ii="' + ii + '" title="Move up"' + (idx === 0 ? ' disabled' : '') + '>&#8593;</button>';
+      var down = '<button type="button" class="btn btn-small" data-action="move-' + kind + '" data-dir="1" data-ci="' + ci + '" data-ii="' + ii + '" title="Move down"' + (idx === len - 1 ? ' disabled' : '') + '>&#8595;</button>';
+      return up + down;
+    }
+
+    function onEditClick(e) {
+      var btn = e.target.closest ? e.target.closest('[data-action]') : null;
+      if (!btn || !editMode) return;
+      var action = btn.getAttribute('data-action');
+      var ci = parseInt(btn.getAttribute('data-ci'), 10);
+      var ii = parseInt(btn.getAttribute('data-ii'), 10);
+      var dir = parseInt(btn.getAttribute('data-dir'), 10);
+
+      if (action === 'add-cat') {
+        draft.push({ category: 'New Category', items: [] });
+      } else if (action === 'del-cat') {
+        if (!confirm('Delete this whole category?')) return;
+        draft.splice(ci, 1);
+      } else if (action === 'add-item') {
+        draft[ci].items.push({ label: '', url: '' });
+      } else if (action === 'del-item') {
+        draft[ci].items.splice(ii, 1);
+      } else if (action === 'move-cat') {
+        var c = draft.splice(ci, 1)[0];
+        draft.splice(ci + dir, 0, c);
+      } else if (action === 'move-item') {
+        var it = draft[ci].items.splice(ii, 1)[0];
+        draft[ci].items.splice(ii + dir, 0, it);
+      } else if (action === 'add-doc') {
+        draftDocs.push({ label: '', url: '' });
+      } else if (action === 'del-doc') {
+        draftDocs.splice(ii, 1);
+      } else {
+        return;
+      }
+      renderEdit();
+    }
+
+    function onEditInput(e) {
+      var el = e.target;
+      var field = el.getAttribute('data-field');
+      if (!field || !editMode) return;
+      var ci = parseInt(el.getAttribute('data-ci'), 10);
+      var ii = parseInt(el.getAttribute('data-ii'), 10);
+      if (field === 'doc-label') { draftDocs[ii].label = el.value; return; }
+      if (field === 'doc-url') { draftDocs[ii].url = el.value; return; }
+      if (field === 'category') {
+        draft[ci].category = el.value;
+      } else if (field === 'sub') {
+        draft[ci].items[ii].sub = el.checked;
+        if (!el.checked) delete draft[ci].items[ii].sub;
+      } else {
+        draft[ci].items[ii][field] = el.value;
+        if (field !== 'label' && el.value === '') delete draft[ci].items[ii][field];
+      }
+    }
+
+    function save() {
+      // Drop rows with no label at all, and empty-name categories with no items.
+      var cleaned = [];
+      for (var i = 0; i < draft.length; i++) {
+        var cat = draft[i];
+        var items = [];
+        for (var j = 0; j < (cat.items || []).length; j++) {
+          var it = cat.items[j];
+          if ((it.label || '').replace(/^\s+|\s+$/g, '') === '') continue;
+          items.push(it);
+        }
+        if ((cat.category || '').replace(/^\s+|\s+$/g, '') === '' && items.length === 0) continue;
+        cleaned.push({ category: cat.category, items: items });
+      }
+
+      var cleanedDocs = [];
+      for (var k2 = 0; k2 < (draftDocs || []).length; k2++) {
+        var dd = draftDocs[k2];
+        var dl = (dd.label || '').replace(/^\s+|\s+$/g, '');
+        var du = (dd.url || '').replace(/^\s+|\s+$/g, '');
+        if (du === '') continue; // a document needs a link
+        if (!/^https?:\/\//i.test(du)) du = 'https://' + du;
+        cleanedDocs.push({ label: dl || du, url: du });
+      }
+
+      var saveBtn = document.getElementById('save-btn');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Saving\u2026';
+
+      google.script.run
+        .withSuccessHandler(function () {
+          LINKS = cleaned;
+          DOCS = cleanedDocs;
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save';
+          exitEditMode();
+          showToast('Saved');
+        })
+        .withFailureHandler(function (err) {
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save';
+          showToast('Save failed: ' + (err && err.message ? err.message : 'unknown error'));
+        })
+        .saveData(JSON.stringify({ links: cleaned, todos: TODOS, docs: cleanedDocs, layout: LAYOUT }));
+    }
+
+    // ============================================================
+    // MISC
+    // ============================================================
+    var toastTimer = null;
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+    }
+
+    function setGreeting() {
+      var h = new Date().getHours();
+      var part = h < 12 ? 'Good morning' : (h < 17 ? 'Good afternoon' : 'Good evening');
+      var name = APP_CONFIG.YOUR_NAME ? ', ' + APP_CONFIG.YOUR_NAME : '';
+      var tail = APP_CONFIG.GREETING_TAGLINE ? ' \u2014 ' + APP_CONFIG.GREETING_TAGLINE : '';
+      document.getElementById('greeting').textContent = part + name + tail;
+    }
+
+    function applyBranding() {
+      var root = document.documentElement.style;
+      if (APP_CONFIG.PRIMARY_COLOR) root.setProperty('--primary', APP_CONFIG.PRIMARY_COLOR);
+      if (APP_CONFIG.DARK_COLOR) root.setProperty('--dark', APP_CONFIG.DARK_COLOR);
+      document.getElementById('name-primary').textContent = APP_CONFIG.SCHOOL_NAME_PRIMARY || '';
+      document.getElementById('name-accent').textContent = APP_CONFIG.SCHOOL_NAME_ACCENT || '';
+      document.getElementById('tagline').textContent = APP_CONFIG.TAGLINE || '';
+
+      var slot = document.getElementById('logo-slot');
+      if (APP_CONFIG.LOGO_DATA_URI) {
+        var img = document.createElement('img');
+        img.src = APP_CONFIG.LOGO_DATA_URI;
+        img.alt = (APP_CONFIG.SCHOOL_NAME_PRIMARY || 'School') + ' logo';
+        slot.appendChild(img);
+      } else {
+        var badge = document.createElement('div');
+        badge.className = 'initials-badge';
+        badge.textContent = initialsFrom(APP_CONFIG.SCHOOL_NAME_PRIMARY || 'S');
+        slot.appendChild(badge);
+      }
+    }
+
+    function initialsFrom(name) {
+      var words = name.replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/);
+      var out = '';
+      for (var i = 0; i < words.length && out.length < 3; i++) {
+        if (words[i]) out += words[i].charAt(0).toUpperCase();
+      }
+      return out || 'S';
+    }
+
+    applyBranding();
+    renderView();
+    setGreeting();
+    document.getElementById('filter').addEventListener('input', applyFilter);
+    document.getElementById('filter').focus();
+    document.getElementById('edit-btn').addEventListener('click', enterEditMode);
+    document.getElementById('cancel-btn').addEventListener('click', exitEditMode);
+    document.getElementById('save-btn').addEventListener('click', save);
+    // Delegated listeners for edit mode — registered once so re-renders
+    // never stack duplicate handlers. Both no-op outside edit mode.
+    document.getElementById('grid').addEventListener('click', onEditClick);
+    document.getElementById('grid').addEventListener('input', onEditInput);
+    // Special-card interactions (To Do / Documents) — no-ops in edit mode.
+    document.getElementById('grid').addEventListener('click', onSpecialClick);
+    document.getElementById('grid').addEventListener('change', onSpecialChange);
+    document.getElementById('grid').addEventListener('keydown', onSpecialKey);
+  <\/script>
+</body>
+</html>
+</script>
+<script type="text/plain" id="code-logo">/**
+ * Logo.gs — E. O. Smith Panther logo.
+ * Replace this file with code generated by the wizard to use another logo.
+ */
+
+var LOGO_DATA_URI = 'data:image/png;base64,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';
+</script>
+
+<script>
+(function () {
+  'use strict';
+
+  // ---------- Step state machine ----------
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var TOTAL = steps.length;
+  var current = 0;
+
+  try {
+    var saved = parseInt(localStorage.getItem('eos-homepage-wizard-v1-step'), 10);
+    if (!isNaN(saved) && saved >= 0 && saved < TOTAL) current = saved;
+  } catch (e) { /* localStorage unavailable; progress just won't persist */ }
+
+  function show(n) {
+    if (n < 0 || n >= TOTAL) return;
+    current = n;
+    for (var i = 0; i < TOTAL; i++) steps[i].classList.toggle('active', i === n);
+    document.getElementById('progress-step').textContent = 'Step ' + (n + 1) + ' of ' + TOTAL;
+    document.getElementById('progress-name').textContent = steps[n].getAttribute('data-name');
+    document.getElementById('progress-fill').style.width = (((n + 1) / TOTAL) * 100) + '%';
+    try { localStorage.setItem('eos-homepage-wizard-v1-step', String(n)); } catch (e) {}
+    window.scrollTo(0, 0);
+  }
+
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest ? e.target.closest('[data-nav]') : null;
+    if (!el) return;
+    show(el.getAttribute('data-nav') === 'next' ? current + 1 : current - 1);
+  });
+
+  document.getElementById('restart-btn').addEventListener('click', function () {
+    try { localStorage.removeItem('eos-homepage-wizard-v1-step'); } catch (e) {}
+    show(0);
+  });
+
+  // ---------- Code display + copy ----------
+  // Restores "<\/script" sequences stored in the text/plain blocks.
+  function getCode(id) {
+    var el = document.getElementById(id);
+    var raw = el ? el.textContent.replace(/<\\\/script/g, '</script') : '';
+    // Code.gs is delivered with the user's Step 4 answers written in.
+    return id === 'code-codegs' ? personalizeCode(raw) : raw;
+  }
+
+  function fillPre(preId, codeId) {
+    var pre = document.getElementById(preId);
+    if (pre) pre.textContent = getCode(codeId);
+  }
+  // ---------- Guided configuration (Step 4) ----------
+  // Answers are injected into the CONFIG block of Code.gs at copy/display
+  // time. The embedded source stays pristine; changing an answer and
+  // re-copying always produces a correct file.
+  var CFG_FIELDS = [
+    { id: 'cfg-primary-name',  key: 'SCHOOL_NAME_PRIMARY', def: 'E. O. Smith',   color: false },
+    { id: 'cfg-accent-name',   key: 'SCHOOL_NAME_ACCENT',  def: 'High School',   color: false },
+    { id: 'cfg-tagline',       key: 'TAGLINE',             def: 'Teachers Homepage', color: false },
+    { id: 'cfg-your-name',     key: 'YOUR_NAME',           def: '',               color: false },
+    { id: 'cfg-greeting',      key: 'GREETING_TAGLINE',    def: 'Go Panthers',               color: false },
+    { id: 'cfg-primary-color', key: 'PRIMARY_COLOR',       def: '#FF0000',        color: true },
+    { id: 'cfg-dark-color',    key: 'DARK_COLOR',          def: '#000000',        color: true },
+    { id: 'cfg-show-todo',     key: 'SHOW_TODO',           def: false,             bool: true },
+    { id: 'cfg-show-docs',     key: 'SHOW_DOCS',           def: true,             bool: true },
+    { id: 'cfg-show-calendar', key: 'SHOW_CALENDAR',       def: true,            bool: true },
+    { id: 'cfg-calendar-url',  key: 'CALENDAR_EMBED_URL',  def: 'https://calendar.google.com/calendar/embed?src=c_7700e5858b8298196af01728854c43cdff74c102629e8e8436c36d82b7d901cc%40group.calendar.google.com&ctz=America%2FNew_York',               color: false },
+    { id: 'cfg-calendar-title',key: 'CALENDAR_TITLE',      def: 'Events Calendar', color: false }
+  ];
+
+  // Common school colors that aren't CSS keywords. Anything not here
+  // falls through to the browser's own CSS color parser (all standard
+  // names like red, navy, teal, plus hex codes).
+  var COLOR_NAMES = {
+    'navy blue': '#000080', 'royal blue': '#4169E1', 'sky blue': '#87CEEB',
+    'light blue': '#ADD8E6', 'powder blue': '#B0E0E6', 'baby blue': '#89CFF0',
+    'columbia blue': '#C4D8E2', 'carolina blue': '#7BAFD4', 'dark blue': '#00008B',
+    'forest green': '#228B22', 'kelly green': '#4CBB17', 'hunter green': '#355E3B',
+    'dark green': '#006400', 'lime green': '#32CD32', 'mint green': '#98FF98',
+    'cardinal': '#C41E3A', 'cardinal red': '#C41E3A', 'scarlet': '#FF2400',
+    'brick red': '#CB4154', 'dark red': '#8B0000', 'wine': '#722F37',
+    'burgundy': '#800020', 'vegas gold': '#C5B358', 'old gold': '#CFB53B',
+    'yellow gold': '#FFD700', 'royal purple': '#7851A9', 'dark purple': '#301934',
+    'charcoal': '#36454F', 'off white': '#FAF9F6'
+  };
+
+  function resolveColor(input) {
+    if (input == null) return null;
+    var v = String(input).trim().toLowerCase();
+    if (v === '') return null;
+    var m = v.match(/^#?([0-9a-f]{6})$/);
+    if (m) return '#' + m[1].toUpperCase();
+    m = v.match(/^#?([0-9a-f])([0-9a-f])([0-9a-f])$/);
+    if (m) return ('#' + m[1] + m[1] + m[2] + m[2] + m[3] + m[3]).toUpperCase();
+    if (COLOR_NAMES[v]) return COLOR_NAMES[v];
+    // Let the browser resolve standard CSS color names.
+    var probe = document.createElement('span');
+    probe.style.color = v;
+    if (!probe.style.color) return null;
+    document.body.appendChild(probe);
+    var rgb = window.getComputedStyle(probe).color;
+    document.body.removeChild(probe);
+    var p = rgb.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (!p) return null;
+    function h(n) { var s = parseInt(n, 10).toString(16).toUpperCase(); return s.length === 1 ? '0' + s : s; }
+    return '#' + h(p[1]) + h(p[2]) + h(p[3]);
+  }
+
+  function currentAnswers() {
+    var out = {};
+    for (var i = 0; i < CFG_FIELDS.length; i++) {
+      var f = CFG_FIELDS[i];
+      var el = document.getElementById(f.id);
+      if (f.bool) {
+        out[f.key] = el ? el.checked : f.def;
+        continue;
+      }
+      var v = el ? el.value : f.def;
+      if (f.color) {
+        out[f.key] = resolveColor(v) || f.def;
+      } else {
+        v = v.replace(/^\s+|\s+$/g, '');
+        if (f.key === 'CALENDAR_EMBED_URL') v = v.replace(/\s+/g, ' ');
+        out[f.key] = (v === '' && f.key !== 'GREETING_TAGLINE' && f.key !== 'YOUR_NAME' && f.key !== 'CALENDAR_EMBED_URL') ? f.def : v;
+      }
+    }
+    return out;
+  }
+
+  // Light sanity check on the calendar paste. The app's own
+  // normalizeCalendarUrl_() in Code.gs does the real work at runtime;
+  // this just catches obvious mispastes while the user is still here.
+  function checkCalendarPaste(raw) {
+    var s = String(raw == null ? '' : raw).replace(/^\s+|\s+$/g, '');
+    if (s === '') return 'Paste your calendar link, embed code, or Calendar ID above.';
+    if (/<iframe/i.test(s)) {
+      return /src\s*=\s*["'][^"']*calendar\.google\.com/i.test(s)
+        ? '' : 'That embed code doesn\u2019t look like it came from Google Calendar.';
+    }
+    if (/^https?:\/\//i.test(s)) {
+      return /^https:\/\/calendar\.google\.com\/calendar\/embed\?/i.test(s)
+        ? '' : 'That link isn\u2019t a Google Calendar embed link \u2014 look for \u201cIntegrate calendar\u201d in the calendar\u2019s settings.';
+    }
+    // Anything else is treated as a Calendar ID; IDs never contain spaces.
+    return /\s/.test(s) ? 'A Calendar ID shouldn\u2019t contain spaces \u2014 double-check what you copied.' : '';
+  }
+
+  function escSq(s) {
+    return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  }
+
+  function personalizeCode(raw) {
+    var a = currentAnswers();
+    for (var i = 0; i < CFG_FIELDS.length; i++) {
+      var f = CFG_FIELDS[i];
+      if (f.bool) {
+        var reB = new RegExp('(' + f.key + ':\\s*)(true|false)');
+        raw = raw.replace(reB, '$1' + (a[f.key] ? 'true' : 'false'));
+        continue;
+      }
+      var re = new RegExp('(' + f.key + ":\\s*')[^']*(')");
+      raw = raw.replace(re, '$1' + escSq(a[f.key]).replace(/\$/g, '$$$$') + '$2');
+    }
+    return raw;
+  }
+
+  function initialsFrom(name) {
+    var words = String(name).replace(/[^A-Za-z0-9 ]/g, '').split(/\s+/);
+    var out = '';
+    for (var i = 0; i < words.length && out.length < 3; i++) {
+      if (words[i]) out += words[i].charAt(0).toUpperCase();
+    }
+    return out || 'S';
+  }
+
+  function refreshConfig() {
+    var a = currentAnswers();
+
+    // Swatches + resolved-value text
+    var pairs = [['cfg-primary-color', 'sw-primary', 'swtext-primary'],
+                 ['cfg-dark-color', 'sw-dark', 'swtext-dark']];
+    for (var i = 0; i < pairs.length; i++) {
+      var raw = document.getElementById(pairs[i][0]).value;
+      var hex = resolveColor(raw);
+      var sw = document.getElementById(pairs[i][1]);
+      var txt = document.getElementById(pairs[i][2]);
+      if (hex) {
+        sw.style.background = hex;
+        txt.textContent = hex;
+      } else {
+        sw.style.background = "repeating-conic-gradient(#EEE 0% 25%, #FFF 0% 50%) 0 0 / 12px 12px";
+        txt.textContent = raw.replace(/^\s+|\s+$/g, '') === '' ? '' : "not recognized \u2014 try 'navy blue' or #003366";
+      }
+    }
+
+    // Live brand preview
+    var pv = document.getElementById('brand-preview');
+    pv.style.background = a.DARK_COLOR;
+    pv.style.borderBottomColor = a.PRIMARY_COLOR;
+    var badge = document.getElementById('pv-badge');
+    badge.style.background = a.DARK_COLOR;
+    badge.style.borderColor = a.PRIMARY_COLOR;
+    badge.textContent = initialsFrom(a.SCHOOL_NAME_PRIMARY);
+    document.getElementById('pv-primary').textContent = a.SCHOOL_NAME_PRIMARY;
+    var acc = document.getElementById('pv-accent');
+    acc.textContent = a.SCHOOL_NAME_ACCENT;
+    acc.style.color = a.PRIMARY_COLOR;
+    document.getElementById('pv-tagline').textContent = a.TAGLINE;
+
+    // Calendar card: reveal the details only when the box is checked,
+    // and sanity-check whatever was pasted.
+    var calOn = document.getElementById('cfg-show-calendar').checked;
+    document.getElementById('cal-details').style.display = calOn ? 'block' : 'none';
+    if (calOn) {
+      var calMsg = document.getElementById('cal-check');
+      var calRes = checkCalendarPaste(document.getElementById('cfg-calendar-url').value);
+      calMsg.textContent = calRes === '' ? '\u2713 Looks good \u2014 the wizard will write the iframe code for you' : calRes;
+      calMsg.className = 'cal-check-msg ' + (calRes === '' ? 'ok' : 'warn');
+    }
+
+    // Re-render the personalized Code.gs block
+    fillPre('pre-codegs', 'code-codegs');
+
+    // Persist answers
+    try {
+      var store = {};
+      for (var j = 0; j < CFG_FIELDS.length; j++) {
+        var elJ = document.getElementById(CFG_FIELDS[j].id);
+        store[CFG_FIELDS[j].id] = elJ.type === 'checkbox' ? (elJ.checked ? '1' : '0') : elJ.value;
+      }
+      localStorage.setItem('eos-homepage-wizard-v1-answers', JSON.stringify(store));
+    } catch (e) {}
+  }
+
+  // Restore saved answers, wire listeners, initial render
+  try {
+    var savedAnswers = JSON.parse(localStorage.getItem('eos-homepage-wizard-v1-answers') || '{}');
+    for (var si = 0; si < CFG_FIELDS.length; si++) {
+      if (typeof savedAnswers[CFG_FIELDS[si].id] === 'string') {
+        var elS = document.getElementById(CFG_FIELDS[si].id);
+        if (elS.type === 'checkbox') elS.checked = savedAnswers[CFG_FIELDS[si].id] === '1';
+        else elS.value = savedAnswers[CFG_FIELDS[si].id];
+      }
+    }
+  } catch (e) {}
+  var cfgInputs = document.querySelectorAll('[data-cfg]');
+  for (var ci = 0; ci < cfgInputs.length; ci++) {
+    cfgInputs[ci].addEventListener('input', refreshConfig);
+    cfgInputs[ci].addEventListener('change', refreshConfig);
+  }
+
+  fillPre('pre-manifest', 'code-manifest');
+  fillPre('pre-index', 'code-index');
+  refreshConfig(); // fills pre-codegs with personalized code
+
+  // Show the preset E. O. Smith logo immediately. Uploading a new image replaces it.
+  (function initDefaultLogo() {
+    var gs = getCode('code-logo');
+    document.getElementById('pre-logo').textContent = gs.substring(0, 400) + '\u2026 (' + gs.length.toLocaleString() + ' characters \u2014 use the Copy button, do not copy from this preview)';
+    var prev = document.getElementById('logo-preview');
+    prev.src = 'data:image/png;base64,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';
+    prev.style.display = 'block';
+  })();
+
+  function copyText(text, btn) {
+    function done() {
+      var old = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function () { btn.textContent = old; btn.classList.remove('copied'); }, 1800);
+      toast('Copied to clipboard');
+    }
+    function fallback() {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch (err) { toast('Copy failed — select the code manually'); }
+      document.body.removeChild(ta);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done, fallback);
+    } else {
+      fallback();
+    }
+  }
+
+  var copyButtons = document.querySelectorAll('.copy-btn[data-code]');
+  for (var i = 0; i < copyButtons.length; i++) {
+    copyButtons[i].addEventListener('click', function (e) {
+      copyText(getCode(e.currentTarget.getAttribute('data-code')), e.currentTarget);
+    });
+  }
+
+  document.getElementById('copy-deploy').addEventListener('click', function (e) {
+    copyText(document.getElementById('pre-deploy').textContent, e.currentTarget);
+  });
+
+  // ---------- Logo converter (runs entirely in this browser) ----------
+  document.getElementById('logo-file').addEventListener('change', function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var img = new Image();
+      img.onload = function () {
+        var targetW = Math.min(220, img.width);
+        var scale = targetW / img.width;
+        var canvas = document.createElement('canvas');
+        canvas.width = targetW;
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+        var dataUri = canvas.toDataURL('image/png');
+
+        var gs = "/**\n * Logo.gs — your school logo as a base64 data URI.\n * Generated by the Scripting for Schools installation wizard.\n * This file is optional; delete it to fall back to the initials badge.\n */\n\nvar LOGO_DATA_URI = '" + dataUri + "';\n";
+        document.getElementById('code-logo').textContent = gs;
+        document.getElementById('pre-logo').textContent = gs.substring(0, 400) + '\u2026 (' + gs.length.toLocaleString() + ' characters \u2014 use the Copy button, do not copy from this preview)';
+        document.getElementById('logo-codeblock').style.display = 'block';
+        var prev = document.getElementById('logo-preview');
+        prev.src = dataUri;
+        prev.style.display = 'block';
+        toast('Logo converted — copy Logo.gs below');
+      };
+      img.onerror = function () { toast('Could not read that image — try a PNG or JPG'); };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // Copy button for the generated logo reads the raw block, not the preview.
+  // (Handled by the generic data-code handler above.)
+
+  // ---------- Toast ----------
+  var toastTimer = null;
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2000);
+  }
+
+  show(current);
+})();
+</script>
+</body>
+</html>
