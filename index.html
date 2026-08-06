@@ -1105,10 +1105,13 @@ var DEFAULT_DOCS = [
   }
 ];
 
+// calendar defaults to the bottom; it's placed last at render time
+// rather than at a fixed index, so it lands correctly no matter how
+// many link cards exist.
 var DEFAULT_LAYOUT = {
   "todo": 0,
   "docs": 3,
-  "calendar": 6
+  "calendar": null
 };
 
 /**
@@ -1700,7 +1703,7 @@ function saveData(json) {
     var LINKS = DATA.links || [];
     var TODOS = DATA.todos || [];
     var DOCS = DATA.docs || [];
-    var LAYOUT = DATA.layout || { todo: 0, docs: 1 };
+    var LAYOUT = DATA.layout || { todo: 0, docs: 1, calendar: null };
     var FEATURE_FLAGS = {
       SHOW_TODO: APP_CONFIG.SHOW_TODO !== false,
       SHOW_DOCS: APP_CONFIG.SHOW_DOCS !== false,
@@ -1738,14 +1741,26 @@ function saveData(json) {
       if (FEATURE_FLAGS.SHOW_CALENDAR) flags.push('calendar');
       var total = LINKS.length + flags.length;
       var seq = new Array(total);
+      // Place non-calendar special cards first at their saved (or default)
+      // slots, then drop the calendar into the last free slot so it always
+      // starts at the bottom.
+      var calendarPending = false;
       for (var f = 0; f < flags.length; f++) {
-        var want = LAYOUT[flags[f]];
-        if (typeof want !== 'number' || want < 0) {
-          want = (flags[f] === 'calendar') ? total - 1 : f;
+        if (flags[f] === 'calendar' &&
+            (typeof LAYOUT.calendar !== 'number' || LAYOUT.calendar < 0)) {
+          calendarPending = true; // no saved position yet -> force to bottom
+          continue;
         }
+        var want = LAYOUT[flags[f]];
+        if (typeof want !== 'number' || want < 0) want = f;
         if (want >= total) want = total - 1;
         while (seq[want] !== undefined) want = (want + 1) % total;
         seq[want] = flags[f];
+      }
+      if (calendarPending) {
+        for (var c = total - 1; c >= 0; c--) {
+          if (seq[c] === undefined) { seq[c] = 'calendar'; break; }
+        }
       }
       var li = 0;
       for (var s = 0; s < total; s++) {
