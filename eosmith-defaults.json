@@ -1,0 +1,276 @@
+{
+  "links": [
+    {
+      "category": "Start of the Year",
+      "items": [
+        {
+          "label": "Mandatory Trainings",
+          "url": "https://eosmith.instructure.com/courses/62/external_tools/9220"
+        },
+        {
+          "label": "Reading Initiative",
+          "url": ""
+        },
+        {
+          "label": "Vocab Strategies / PD Schedule",
+          "url": "https://docs.google.com/document/d/11HEEp0bUcCIDGQROCtc6uQFOVjwp7PRmgMuku3tqCJA/edit?tab=t.0",
+          "sub": true
+        },
+        {
+          "label": "Past PD Work",
+          "url": "https://eosmith.instructure.com/courses/62/pages/instructional-slash-equity-resources"
+        },
+        {
+          "label": "Professional Development 2026-27",
+          "url": ""
+        },
+        {
+          "label": "PD Calendar",
+          "url": "https://docs.google.com/document/d/1XbIYYKKAOHOEUzF1JoKth30Vt8r-aesSA45ECB0z8Vc/edit?tab=t.0",
+          "sub": true
+        },
+        {
+          "label": "School Improvement Plan (SIP)",
+          "url": "https://docs.google.com/document/d/1np7Sjz6SU0DcMYlPldn7tOCI-f_rPeAj/edit",
+          "sub": true
+        },
+        {
+          "label": "August 25",
+          "url": "https://docs.google.com/document/d/1mWAol3SgAqlVqwAThuCLZKvXTUPF9tBqPjQfLEfIQRA/edit?tab=t.0",
+          "sub": true
+        },
+        {
+          "label": "August 26",
+          "url": "https://docs.google.com/document/d/1LQlrYyKFurZ7jYXblBOFW2bqnu1qC1BMhT7XD0EM-54/edit?usp=sharing",
+          "sub": true
+        }
+      ]
+    },
+    {
+      "category": "Daily Tools",
+      "items": [
+        {
+          "label": "Outlook",
+          "url": "https://outlook.office365.com/mail/?vd=mail"
+        },
+        {
+          "label": "Add School Event to Calendar",
+          "url": "https://docs.google.com/forms/d/e/1FAIpQLScQoAsp5fx_FSn93rij0XtiMbm1bGq_BwovujUuBDwS_vMppw/viewform?usp=header"
+        },
+        {
+          "label": "PowerSchool",
+          "url": ""
+        },
+        {
+          "label": "Teacher Login",
+          "url": "https://rsd19.powerschool.com/teachers",
+          "sub": true
+        },
+        {
+          "label": "Admin Login",
+          "url": "https://rsd19.powerschool.com/admin",
+          "sub": true
+        },
+        {
+          "label": "Sub Portal",
+          "url": "https://rsd19.powerschool.com/subs",
+          "sub": true
+        },
+        {
+          "label": "Google Drive",
+          "url": "https://drive.google.com"
+        },
+        {
+          "label": "Canvas",
+          "url": ""
+        },
+        {
+          "label": "Dashboard",
+          "url": "https://eosmith.instructure.com/",
+          "sub": true
+        },
+        {
+          "label": "Teacher Resources",
+          "url": "https://eosmith.instructure.com/courses/62",
+          "sub": true
+        },
+        {
+          "label": "TalentEd Perform",
+          "url": "https://regional19.tedk12.com/perform/HRTools/HRStaff_Processes.aspx"
+        },
+        {
+          "label": "Frontline",
+          "url": "https://login.frontlineeducation.com/sso/regionalsd19"
+        }
+      ]
+    },
+    {
+      "category": "My Links",
+      "items": [
+        {
+          "label": "E.O. Smith Homepage",
+          "url": "https://www.eosmith.org/"
+        },
+        {
+          "label": "GoGuardian - Teacher",
+          "url": "https://teacher.goguardian.com/"
+        },
+        {
+          "label": "CT SEDS",
+          "url": "https://ctseds.ct.gov/CTRegion19"
+        },
+        {
+          "label": "Naviance",
+          "url": "https://id.naviance.com/"
+        },
+        {
+          "label": "Learn Platform",
+          "url": "https://ctedtech.app.learnplatform.com/users/sign_in",
+          "note": "Check apps for Student Data Privacy"
+        },
+        {
+          "label": "Request to pilot a New Educational App",
+          "url": "https://eosmith.instructure.com/courses/62/files/89757/download?wrap=1"
+        }
+      ]
+    },
+    {
+      "category": "Apps",
+      "items": [
+        {
+          "label": "E.O. Smith Custom Apps",
+          "url": "",
+          "note": "Must be logged into your school Chrome account"
+        },
+        {
+          "label": "Behavioral Referral Form",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec",
+          "sub": true
+        },
+        {
+          "label": "Behavioral Referrals Teacher Dashboard",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec?page=teacher",
+          "sub": true
+        },
+        {
+          "label": "Request for Student Support",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbyr_tcVFTBaD4Zdsu7vGWeeEn3I0EuAJsQ4HvTsEDFjTxTtuHGfxQzAwVQapYoRQJC_/exec",
+          "sub": true
+        },
+        {
+          "label": "Score Portal",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxMZWxDxUXYQzIcKa9fs7h74QyDNdYU8V5hwdUllvA01t8gNkhg06c8sRgP8ykAnIC5/exec",
+          "sub": true
+        },
+        {
+          "label": "Accountabilities Submission/Teacher Dashboard",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzyStulOZouFp25SS3zLS1THMSg-OqvhNEIqX_N1B_r6NylmzXuCF1PMzVV0BZsn3zZNQ/exec?as=",
+          "sub": true
+        },
+        {
+          "label": "Lost & Found",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbz-cqJlFRqiDSzsYctIME9GcVmU4oUPVaJTMcnCAqQatjvpbWb2YPMb3FmBtb0oRFEt/exec",
+          "sub": true
+        },
+        {
+          "label": "QR Code Generator",
+          "url": "https://eosmithhs.github.io/E.O.-Smith-QR-Code-Creator/"
+        },
+        {
+          "label": "Exit Ticket Creator",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxBlyYwkxlGDwyMPR3HE8sWGV9WEXYir84j-JDSU4_fkYCeptTMWLeiICLMQXviCPHx/exec"
+        },
+        {
+          "label": "PDF Reader w/ Text Highlighting",
+          "url": "https://eosmithhs.github.io/PDF-Reader-for-EOS/"
+        },
+        {
+          "label": "Homepage Creation Wizard",
+          "url": "https://scriptingforschools.org/HomepageWizard.html"
+        }
+      ]
+    },
+    {
+      "category": "AI Tools",
+      "items": [
+        {
+          "label": "AI Resources",
+          "url": "https://eosmith.instructure.com/courses/62/pages/ai-at-eos"
+        },
+        {
+          "label": "Google AI Tools",
+          "url": ""
+        },
+        {
+          "label": "Gemini",
+          "url": "https://gemini.google.com/app",
+          "sub": true
+        },
+        {
+          "label": "NotebookLM",
+          "url": "https://notebooklm.google/",
+          "sub": true
+        },
+        {
+          "label": "Learn About",
+          "url": "https://learning.google.com/experiments/learn-about?src=signup",
+          "sub": true
+        },
+        {
+          "label": "Storybook",
+          "url": "https://gemini.google/overview/storybook/",
+          "sub": true
+        },
+        {
+          "label": "Guided Learning",
+          "url": "https://gemini.google.com/guided-learning",
+          "sub": true
+        },
+        {
+          "label": "ChatGPT",
+          "url": "https://chatgpt.com/"
+        },
+        {
+          "label": "Canva",
+          "url": "https://www.canva.com/"
+        }
+      ]
+    }
+  ],
+  "todos": [],
+  "docs": [
+    {
+      "label": "2026-27 School Calendar",
+      "url": "https://drive.google.com/file/d/1t1m4sCpvosOr2M1aEtGIVLtRWMYuxDFU/view?usp=sharing"
+    },
+    {
+      "label": "Daily Schedule",
+      "url": "https://drive.google.com/file/d/1pN5-FeciZ3LMlrOtbkjtfX_iLKkwLc6z/view?usp=sharing"
+    },
+    {
+      "label": "Staff Phone Directory",
+      "url": "https://drive.google.com/file/d/18j2Gw6kStiQHXz2DDT0As6uIfwdPyu6D/view?usp=sharing"
+    },
+    {
+      "label": "Request - Professional Leave",
+      "url": "https://eosmith.instructure.com/courses/62/files/1501/download?wrap=1"
+    },
+    {
+      "label": "Request - Personal Leave",
+      "url": "https://eosmith.instructure.com/courses/62/files/1500/download?wrap=1"
+    },
+    {
+      "label": "Calendar Handbook",
+      "url": "https://eosmith.instructure.com/courses/62/external_tools/16093"
+    },
+    {
+      "label": "Program of Studies",
+      "url": "https://eosmith.instructure.com/courses/62/pages/program-of-studies"
+    }
+  ],
+  "layout": {
+    "todo": 0,
+    "docs": 3,
+    "calendar": 6
+  }
+}
