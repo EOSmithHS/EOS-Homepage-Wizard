@@ -269,7 +269,7 @@
     margin: 8px 0;
     cursor: pointer;
   }
-  .cfg-check input[type="checkbox"], .cfg-check input[type="radio"] { width: 20px; height: 20px; accent-color: var(--red); flex: 0 0 auto; }
+  .cfg-check input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--red); flex: 0 0 auto; }
   .cfg-field textarea {
     width: 100%;
     max-width: 640px;
@@ -377,7 +377,7 @@
     <div class="card">
       <div class="step-kicker">Step 1</div>
       <h2>Welcome — install your E. O. Smith Teacher Homepage</h2>
-      <p><strong>School Homepage</strong> is a browser start page that runs from your Google account and can be used personally or shared with colleagues in your organization. It shows your links in branded category cards, with a type-to-filter box, drag-to-rearrange category tiles, optional To-Do, Important Documents, and embedded Google Calendar cards, a copy button on every URL, and an Edit mode for authorized editors — no code edits after setup.</p>
+      <p><strong>School Homepage</strong> is a personal browser start page that runs entirely in your own Google account. It shows your links in branded category cards, with a type-to-filter box, drag-to-rearrange category tiles, optional To-Do, Important Documents, and embedded Google Calendar cards, a copy button on every URL, and an Edit mode so you can change everything right in the page — no code edits after setup.</p>
       <div class="callout info">This wizard will guide you through copying files into Google Apps Script. It does not directly install the app into your Google account.</div>
       <h3>What you'll need</h3>
       <ul>
@@ -388,6 +388,7 @@
         <li>About 15 minutes</li>
       </ul>
       <p class="muted">No spreadsheet, form, or shared folder is required. Everything the app needs, it creates itself.</p>
+      <p class="muted">For E.O. Smith maintainers: the preset school links and Important Documents live in <code>eosmith-defaults.json</code>, so future link updates do not require editing this wizard.</p>
       <div class="nav-row">
         <span class="spacer"></span>
         <button type="button" class="btn btn-primary" data-nav="next" id="start-btn">Start</button>
@@ -483,13 +484,6 @@
       </div>
 
       <div class="cfg-field">
-        <label>Who should be able to edit this homepage?</label>
-        <label class="cfg-check"><input type="radio" name="cfg-edit-access" id="cfg-edit-owner" value="OWNER_ONLY" data-cfg checked> <strong>Only me (the admin who created it)</strong> &mdash; everyone in the organization can view the homepage, but only I can change it.</label>
-        <label class="cfg-check"><input type="radio" name="cfg-edit-access" id="cfg-edit-all" value="ALL_USERS" data-cfg> <strong>All users</strong> &mdash; everyone in the organization who can open the homepage can also edit it.</label>
-        <p class="muted">This is enforced by the Apps Script server, not just by hiding the Edit button. For a shared department homepage, &ldquo;Only me&rdquo; is the safer default.</p>
-      </div>
-
-      <div class="cfg-field">
         <label>Optional cards</label>
         <label class="cfg-check"><input type="checkbox" id="cfg-show-todo" data-cfg> Include a <strong>To-Do list</strong> card (checkboxes, notes, edit in place)</label>
         <label class="cfg-check"><input type="checkbox" id="cfg-show-docs" data-cfg checked> Include an <strong>Important Documents</strong> card (open + remove icons; add documents with the in-page Edit button)</label>
@@ -535,6 +529,7 @@
     <div class="card">
       <div class="step-kicker">Step 5</div>
       <h2>Add the project files</h2>
+      <div class="callout info" id="defaults-status"><strong>E.O. Smith defaults:</strong> Loading <code>eosmith-defaults.json</code>&hellip;</div>
       <p>You'll create <strong>3 required files</strong> (plus 1 optional logo file). Filenames must match <em>exactly</em> — Apps Script is case-sensitive, and the code loads <code>Index</code> by name.</p>
       <div class="callout">Before pasting replacement code, click inside the Apps Script file, press Ctrl+A or Cmd+A, delete the old contents, and then paste the new code. Do not paste new code underneath old code.</div>
 
@@ -602,7 +597,7 @@
     <div class="card">
       <div class="step-kicker">Step 7</div>
       <h2>Authorization — what to expect</h2>
-      <p>When you deploy in the next step, Google will ask you to approve access to your Google Drive and your account email address. Drive access lets the app save the shared homepage settings file; the email address is used only to enforce the &ldquo;only me&rdquo; editing option. Here's what the screens will look like:</p>
+      <p>When you deploy in the next step, Google will ask you to approve one permission: access to your Google Drive. That's so the app can save your links file — the only thing it touches. Here's what the screens will look like:</p>
       <ol>
         <li>Click <strong>Review Permissions</strong> when prompted.</li>
         <li>Choose the Google account you're installing under.</li>
@@ -629,17 +624,17 @@
         <pre id="pre-deploy">Type:            Web app
 Description:     School Homepage v1
 Execute as:      Me (your email)
-Who has access:  Anyone within your organization</pre>
+Who has access:  Only myself</pre>
       </div>
       <ol>
         <li>Click <strong>Deploy</strong> (top right) &rarr; <strong>New deployment</strong>.</li>
         <li>Click the gear next to <em>Select type</em> and choose <strong>Web app</strong>.</li>
         <li>Add a description, e.g. <em>School Homepage v1</em>.</li>
         <li>Execute as: <strong>Me</strong>.</li>
-        <li>Who has access: <strong>Anyone within your organization</strong> (for E. O. Smith, Regional School District 19).</li>
+        <li>Who has access: <strong>Only myself</strong>.</li>
         <li>Click <strong>Deploy</strong>, authorize if prompted (see Step 7), then <strong>copy the Web app URL</strong> — the one ending in <code>/exec</code>.</li>
       </ol>
-      <p>Why these settings: the homepage runs under the creator&rsquo;s account so its shared settings file stays in the creator&rsquo;s Drive, while people in the same Google Workspace organization can open the page. Your Step 4 editing choice determines whether those viewers can also make changes or whether editing stays with the creator only.</p>
+      <p>Why these settings: this is a <em>personal</em> homepage. &ldquo;Execute as: Me&rdquo; + &ldquo;Only myself&rdquo; means the app runs under your account, stores data in your Drive, and nobody else can open your copy. Colleagues who want one should run this wizard themselves.</p>
       <div class="callout">If this app handles student data, credentials, attendance, discipline, or private records, do not deploy it as public or anonymous.</div>
       <h3>Set it as your browser homepage</h3>
       <p>Paste the <code>/exec</code> URL into your browser's homepage / new-window setting (e.g. Chrome: Settings &rarr; Appearance &rarr; Show home button &rarr; paste URL).</p>
@@ -664,7 +659,7 @@ Who has access:  Anyone within your organization</pre>
         <li><input type="checkbox" id="t4"><label for="t4">The <strong>copy icon</strong> next to a link copies its URL (a &ldquo;URL copied&rdquo; toast appears).</label></li>
         <li><input type="checkbox" id="t5"><label for="t5">Typing in the <strong>filter box</strong> narrows the links; clearing it restores them.</label></li>
         <li><input type="checkbox" id="t6"><label for="t6"><strong>Drag a card by its title bar</strong> to a new spot &mdash; an &ldquo;Order saved&rdquo; toast appears and the order survives a reload. (Touch devices: reorder with the arrows in Edit mode instead.)</label></li>
-        <li><input type="checkbox" id="t6b"><label for="t6b"><strong>Edit</strong> &rarr; change a label &rarr; <strong>Save</strong> shows a &ldquo;Saved&rdquo; toast for an authorized editor. If you chose <em>Only me</em>, open the page from another organization account and confirm that the Edit button and other change controls are absent.</label></li>
+        <li><input type="checkbox" id="t6b"><label for="t6b"><strong>Edit</strong> &rarr; change a label &rarr; <strong>Save</strong> shows a &ldquo;Saved&rdquo; toast.</label></li>
         <li><input type="checkbox" id="t7"><label for="t7"><strong>Reload the page</strong> — your edit is still there (it survived in Drive).</label></li>
         <li><input type="checkbox" id="t8"><label for="t8">Your Drive now contains <code>School Homepage Links.json</code>.</label></li>
         <li><input type="checkbox" id="t9"><label for="t9">If you kept them: add a <strong>To-Do</strong> item and check it off, and add an <strong>Important Document</strong> with the Edit button &mdash; reload and confirm both stuck.</label></li>
@@ -694,7 +689,7 @@ Who has access:  Anyone within your organization</pre>
       </div></details>
 
       <details class="trouble-item"><summary>Access Denied when opening the URL</summary><div class="trouble-body">
-        <p>You're likely signed into a Google account outside the creator's Workspace organization (common with multiple school/personal profiles). Open the URL in the correct school/work profile. Also confirm the deployment says <em>Execute as: Me</em> / <em>Anyone within your organization</em>.</p>
+        <p>You're likely signed into a different Google account in that browser tab (common with multiple school/personal profiles). Open the URL in the profile that owns the script. Also confirm the deployment says <em>Execute as: Me</em> / <em>Only myself</em>.</p>
       </div></details>
 
       <details class="trouble-item"><summary>Web app shows an old version after code changes</summary><div class="trouble-body">
@@ -740,7 +735,7 @@ Who has access:  Anyone within your organization</pre>
         <li><strong>Bookmark the <code>/exec</code> URL</strong> (and set it as your browser homepage) — it's the only door into your app.</li>
         <li><strong>Keep the Apps Script project.</strong> Deleting it kills the deployment.</li>
         <li><strong>Protect <code>School Homepage Links.json</code></strong> in your Drive — deleting it resets your links to the defaults (the app recreates it on your next save; nothing breaks).</li>
-        <li><strong>Sharing with colleagues?</strong> You can share the <code>/exec</code> URL with people in your Google Workspace organization. If you chose <em>Only me</em> for editing, they will get the same homepage without editing controls.</li>
+        <li><strong>Sharing with colleagues?</strong> Don't share your URL — it's locked to you by design. Send them this wizard instead so they get their own copy.</li>
       </ul>
       <p class="muted">Found this useful? More free Apps Script tools for educators at <a href="https://scriptingforschools.org" target="_blank" rel="noopener">scriptingforschools.org</a>.</p>
       <div class="nav-row">
@@ -766,23 +761,23 @@ Who has access:  Anyone within your organization</pre>
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "oauthScopes": [
-    "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/userinfo.email"
+    "https://www.googleapis.com/auth/drive"
   ],
   "webapp": {
     "executeAs": "USER_DEPLOYING",
-    "access": "DOMAIN"
+    "access": "MYSELF"
   }
 }</script>
 <script type="text/plain" id="code-codegs">/**
- * School Homepage — a browser start page that can be personal or shared.
+ * School Homepage — a personal browser start page you can edit in place.
  * From Scripting for Schools (scriptingforschools.org).
  *
- * Deploy as web app: "Execute as: Me", "Who has access: Anyone within your organization".
+ * Deploy as web app: "Execute as: Me", "Who has access: Only myself".
  * Set the /exec URL as your browser homepage.
  *
  * HOW DATA WORKS
- * DEFAULT_LINKS below seeds the page. The first time you click Edit > Save,
+ * The wizard injects DEFAULT_LINKS / DEFAULT_DOCS from eosmith-defaults.json.
+ * The first time you click Edit > Save,
  * the app writes a JSON file ("School Homepage Links.json") to your Drive
  * and uses that from then on. After that, edit links in the page, not here.
  * To reset to defaults: delete the Drive file and clear the LINKS_FILE_ID
@@ -816,11 +811,6 @@ var CONFIG = {
   // Leave '' for a plain 'Good morning'.
   GREETING_TAGLINE: 'Go Panthers',
 
-  // Editing permissions for a shared homepage.
-  // OWNER_ONLY = everyone can view, but only the person who deployed the app can edit.
-  // ALL_USERS = everyone in the organization who can view the app can also edit.
-  EDIT_ACCESS: 'OWNER_ONLY',
-
   // Optional cards: true shows the card, false hides it.
   SHOW_TODO: false,
   SHOW_DOCS: true,
@@ -846,298 +836,13 @@ var CONFIG = {
 
 var STORAGE_FILE_NAME = 'School Homepage Links.json';
 
-var DEFAULT_LINKS = [
-  {
-    "category": "Start of the Year",
-    "items": [
-      {
-        "label": "Mandatory Trainings",
-        "url": "https://eosmith.instructure.com/courses/62/external_tools/9220"
-      },
-      {
-        "label": "Reading Initiative",
-        "url": ""
-      },
-      {
-        "label": "Vocab Strategies / PD Schedule",
-        "url": "https://docs.google.com/document/d/11HEEp0bUcCIDGQROCtc6uQFOVjwp7PRmgMuku3tqCJA/edit?tab=t.0",
-        "sub": true
-      },
-      {
-        "label": "Past PD Work",
-        "url": "https://eosmith.instructure.com/courses/62/pages/instructional-slash-equity-resources"
-      },
-      {
-        "label": "Professional Development 2026-27",
-        "url": ""
-      },
-      {
-        "label": "PD Calendar",
-        "url": "https://docs.google.com/document/d/1XbIYYKKAOHOEUzF1JoKth30Vt8r-aesSA45ECB0z8Vc/edit?tab=t.0",
-        "sub": true
-      },
-      {
-        "label": "School Improvement Plan (SIP)",
-        "url": "https://docs.google.com/document/d/1np7Sjz6SU0DcMYlPldn7tOCI-f_rPeAj/edit",
-        "sub": true
-      },
-      {
-        "label": "August 25",
-        "url": "https://docs.google.com/document/d/1mWAol3SgAqlVqwAThuCLZKvXTUPF9tBqPjQfLEfIQRA/edit?tab=t.0",
-        "sub": true
-      },
-      {
-        "label": "August 26",
-        "url": "https://docs.google.com/document/d/1LQlrYyKFurZ7jYXblBOFW2bqnu1qC1BMhT7XD0EM-54/edit?usp=sharing",
-        "sub": true
-      }
-    ]
-  },
-  {
-    "category": "Daily Tools",
-    "items": [
-      {
-        "label": "Outlook",
-        "url": "https://outlook.office365.com/mail/?vd=mail"
-      },
-      {
-        "label": "Add School Event to Calendar",
-        "url": "https://docs.google.com/forms/d/e/1FAIpQLScQoAsp5fx_FSn93rij0XtiMbm1bGq_BwovujUuBDwS_vMppw/viewform?usp=header"
-      },
-      {
-        "label": "Atlas/Rubicon",
-        "url": "http://eosmith.rubiconatlas.org/"
-      },
-      {
-        "label": "PowerSchool",
-        "url": ""
-      },
-      {
-        "label": "Teacher Login",
-        "url": "https://rsd19.powerschool.com/teachers",
-        "sub": true
-      },
-      {
-        "label": "Admin Login",
-        "url": "https://rsd19.powerschool.com/admin",
-        "sub": true
-      },
-      {
-        "label": "Sub Portal",
-        "url": "https://rsd19.powerschool.com/subs",
-        "sub": true
-      },
-      {
-        "label": "Google Drive",
-        "url": "https://drive.google.com"
-      },
-      {
-        "label": "Canvas",
-        "url": ""
-      },
-      {
-        "label": "Dashboard",
-        "url": "https://eosmith.instructure.com/",
-        "sub": true
-      },
-      {
-        "label": "Teacher Resources",
-        "url": "https://eosmith.instructure.com/courses/62",
-        "sub": true
-      }
-    ]
-  },
-  {
-    "category": "My Links",
-    "items": [
-      {
-        "label": "E.O. Smith Homepage",
-        "url": "https://www.eosmith.org/"
-      },
-      {
-        "label": "GoGuardian - Teacher",
-        "url": "https://teacher.goguardian.com/"
-      },
-      {
-        "label": "CT SEDS",
-        "url": "https://ctseds.ct.gov/CTRegion19"
-      },
-      {
-        "label": "TalentEd Perform",
-        "url": "https://regional19.tedk12.com/perform/HRTools/HRStaff_Processes.aspx"
-      },
-      {
-        "label": "Naviance",
-        "url": "https://id.naviance.com/"
-      },
-      {
-        "label": "Frontline",
-        "url": "https://login.frontlineeducation.com/sso/regionalsd19"
-      },
-      {
-        "label": "Learn Platform",
-        "url": "https://ctedtech.app.learnplatform.com/users/sign_in",
-        "note": "Check apps for Student Data Privacy"
-      },
-      {
-        "label": "Request to pilot a New Educational App",
-        "url": "https://eosmith.instructure.com/courses/62/files/89757/download?wrap=1"
-      }
-    ]
-  },
-  {
-    "category": "Apps",
-    "items": [
-      {
-        "label": "E.O. Smith Custom Apps",
-        "url": "",
-        "note": "Must be logged into your school Chrome account"
-      },
-      {
-        "label": "Behavioral Referral Form",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec",
-        "sub": true
-      },
-      {
-        "label": "Behavioral Referrals Teacher Dashboard",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec?page=teacher",
-        "sub": true
-      },
-      {
-        "label": "Request for Student Support",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbyr_tcVFTBaD4Zdsu7vGWeeEn3I0EuAJsQ4HvTsEDFjTxTtuHGfxQzAwVQapYoRQJC_/exec",
-        "sub": true
-      },
-      {
-        "label": "Score Portal",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxMZWxDxUXYQzIcKa9fs7h74QyDNdYU8V5hwdUllvA01t8gNkhg06c8sRgP8ykAnIC5/exec",
-        "sub": true
-      },
-      {
-        "label": "Accountabilities Submission/Teacher Dashboard",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzyStulOZouFp25SS3zLS1THMSg-OqvhNEIqX_N1B_r6NylmzXuCF1PMzVV0BZsn3zZNQ/exec?as=",
-        "sub": true
-      },
-      {
-        "label": "Lost & Found",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbz-cqJlFRqiDSzsYctIME9GcVmU4oUPVaJTMcnCAqQatjvpbWb2YPMb3FmBtb0oRFEt/exec",
-        "sub": true
-      },
-      {
-        "label": "QR Code Generator",
-        "url": "https://eosmithhs.github.io/E.O.-Smith-QR-Code-Creator/"
-      },
-      {
-        "label": "Exit Ticket Creator",
-        "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxBlyYwkxlGDwyMPR3HE8sWGV9WEXYir84j-JDSU4_fkYCeptTMWLeiICLMQXviCPHx/exec"
-      },
-      {
-        "label": "PDF Reader w/ Text Highlighting",
-        "url": "https://eosmithhs.github.io/PDF-Reader-for-EOS/"
-      },
-      {
-        "label": "Homepage Creation Wizard",
-        "url": "https://scriptingforschools.org/HomepageWizard.html"
-      }
-    ]
-  },
-  {
-    "category": "AI Tools",
-    "items": [
-      {
-        "label": "AI Resources",
-        "url": "https://eosmith.instructure.com/courses/62/pages/ai-at-eos"
-      },
-      {
-        "label": "AI: Classroom Guidelines",
-        "url": "https://drive.google.com/drive/u/0/folders/1A4745oH2g0sfmB41-2NHdCSEO-4I31jG"
-      },
-      {
-        "label": "Google AI Tools",
-        "url": ""
-      },
-      {
-        "label": "Gemini",
-        "url": "https://gemini.google.com/app",
-        "sub": true
-      },
-      {
-        "label": "NotebookLM",
-        "url": "https://notebooklm.google/",
-        "sub": true
-      },
-      {
-        "label": "Learn About",
-        "url": "https://learning.google.com/experiments/learn-about?src=signup",
-        "sub": true
-      },
-      {
-        "label": "Storybook",
-        "url": "https://gemini.google/overview/storybook/",
-        "sub": true
-      },
-      {
-        "label": "Guided Learning",
-        "url": "https://gemini.google.com/guided-learning",
-        "sub": true
-      },
-      {
-        "label": "ChatGPT",
-        "url": "https://chatgpt.com/"
-      },
-      {
-        "label": "Canva",
-        "url": "https://www.canva.com/"
-      }
-    ]
-  }
-];
+var DEFAULT_LINKS = __EOS_DEFAULT_LINKS__;
 
-var DEFAULT_TODOS = [];
+var DEFAULT_TODOS = __EOS_DEFAULT_TODOS__;
 
-var DEFAULT_DOCS = [
-  {
-    "label": "2026-27 School Calendar",
-    "url": "https://drive.google.com/file/d/1t1m4sCpvosOr2M1aEtGIVLtRWMYuxDFU/view?usp=sharing"
-  },
-  {
-    "label": "Daily Schedule",
-    "url": "https://drive.google.com/file/d/1pN5-FeciZ3LMlrOtbkjtfX_iLKkwLc6z/view?usp=sharing"
-  },
-  {
-    "label": "Staff Phone Directory",
-    "url": "https://drive.google.com/file/d/18j2Gw6kStiQHXz2DDT0As6uIfwdPyu6D/view?usp=sharing"
-  },
-  {
-    "label": "Request - Professional Leave",
-    "url": "https://eosmith.instructure.com/courses/62/files/1501/download?wrap=1"
-  },
-  {
-    "label": "Request - Personal Leave",
-    "url": "https://eosmith.instructure.com/courses/62/files/1500/download?wrap=1"
-  },
-  {
-    "label": "Calendar Handbook",
-    "url": "https://eosmith.instructure.com/courses/62/external_tools/16093"
-  },
-  {
-    "label": "Program of Studies",
-    "url": "https://eosmith.instructure.com/courses/62/pages/program-of-studies"
-  },
-  {
-    "label": "Goal Setting Form",
-    "url": "https://docs.google.com/document/d/1OnDuSd8Z58U0h4gN9HdZpq2ZQwePfGFS4kNg1qpIoyU/edit?usp=sharing"
-  }
-];
+var DEFAULT_DOCS = __EOS_DEFAULT_DOCS__;
 
-// calendar defaults to the bottom; it's placed last at render time
-// rather than at a fixed index, so it lands correctly no matter how
-// many link cards exist.
-var DEFAULT_LAYOUT = {
-  "todo": 0,
-  "docs": 3,
-  "calendar": null
-};
+var DEFAULT_LAYOUT = __EOS_DEFAULT_LAYOUT__;
 
 /**
  * Turns whatever was pasted into CALENDAR_EMBED_URL -- a full <iframe>
@@ -1179,30 +884,6 @@ function normalizeCalendarUrl_(input) {
 }
 
 /**
- * Returns true when the current viewer may change shared homepage data.
- * In OWNER_ONLY mode, the viewer must be the same account that deployed
- * the web app. If Google does not expose the active viewer email, this
- * fails closed and returns false.
- */
-function canCurrentUserEdit_() {
-  if (CONFIG.EDIT_ACCESS === 'ALL_USERS') return true;
-
-  var activeEmail = (Session.getActiveUser().getEmail() || '').trim().toLowerCase();
-  var ownerEmail = (Session.getEffectiveUser().getEmail() || '').trim().toLowerCase();
-  return !!activeEmail && !!ownerEmail && activeEmail === ownerEmail;
-}
-
-/**
- * Security boundary for every write. Client-side hidden controls are only
- * a convenience; this server check is what actually protects the data.
- */
-function assertCurrentUserCanEdit_() {
-  if (!canCurrentUserEdit_()) {
-    throw new Error('You are not authorized to edit this homepage.');
-  }
-}
-
-/**
  * Serves the homepage with the current links (saved copy if it exists,
  * otherwise the defaults above) and the CONFIG branding values.
  */
@@ -1210,7 +891,6 @@ function doGet() {
   var template = HtmlService.createTemplateFromFile('Index');
 
   var cfg = JSON.parse(JSON.stringify(CONFIG));
-  cfg.CAN_EDIT = canCurrentUserEdit_();
   // Logo.gs is optional; fall back to an initials badge when absent.
   cfg.LOGO_DATA_URI = (typeof LOGO_DATA_URI !== 'undefined') ? LOGO_DATA_URI : '';
   cfg.CALENDAR_EMBED_URL = normalizeCalendarUrl_(CONFIG.CALENDAR_EMBED_URL);
@@ -1263,8 +943,6 @@ function getDataJson_() {
  * can't corrupt storage.
  */
 function saveData(json) {
-  assertCurrentUserCanEdit_();
-
   var parsed = JSON.parse(json); // throws to the client's failure handler if invalid
   if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.links)) {
     throw new Error('Data must be an object with a links array.');
@@ -1695,15 +1373,6 @@ function saveData(json) {
     }
     #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    /* ---------- Read-only viewers ---------- */
-    body.read-only .grip,
-    body.read-only .icon-btn,
-    body.read-only .add-row {
-      display: none !important;
-    }
-    body.read-only .card h2 { cursor: default; }
-    body.read-only .todo-check { pointer-events: none; }
-
     .hidden { display: none !important; }
 
     #no-results {
@@ -1744,7 +1413,7 @@ function saveData(json) {
     <div class="greeting" id="greeting"></div>
     <div class="toolbar-actions">
       <input type="search" id="filter" placeholder="Type to filter links&hellip;" aria-label="Filter links">
-      <button type="button" class="btn hidden" id="edit-btn">Edit</button>
+      <button type="button" class="btn" id="edit-btn">Edit</button>
       <button type="button" class="btn btn-primary hidden" id="save-btn">Save</button>
       <button type="button" class="btn hidden" id="cancel-btn">Cancel</button>
     </div>
@@ -1760,12 +1429,11 @@ function saveData(json) {
 
   <script>
     var APP_CONFIG = <?!= configJson ?>;
-    var CAN_EDIT = APP_CONFIG.CAN_EDIT === true;
     var DATA = <?!= dataJson ?>;
     var LINKS = DATA.links || [];
     var TODOS = DATA.todos || [];
     var DOCS = DATA.docs || [];
-    var LAYOUT = DATA.layout || { todo: 0, docs: 1, calendar: null };
+    var LAYOUT = DATA.layout || { todo: 0, docs: 1 };
     var FEATURE_FLAGS = {
       SHOW_TODO: APP_CONFIG.SHOW_TODO !== false,
       SHOW_DOCS: APP_CONFIG.SHOW_DOCS !== false,
@@ -1803,26 +1471,14 @@ function saveData(json) {
       if (FEATURE_FLAGS.SHOW_CALENDAR) flags.push('calendar');
       var total = LINKS.length + flags.length;
       var seq = new Array(total);
-      // Place non-calendar special cards first at their saved (or default)
-      // slots, then drop the calendar into the last free slot so it always
-      // starts at the bottom.
-      var calendarPending = false;
       for (var f = 0; f < flags.length; f++) {
-        if (flags[f] === 'calendar' &&
-            (typeof LAYOUT.calendar !== 'number' || LAYOUT.calendar < 0)) {
-          calendarPending = true; // no saved position yet -> force to bottom
-          continue;
-        }
         var want = LAYOUT[flags[f]];
-        if (typeof want !== 'number' || want < 0) want = f;
+        if (typeof want !== 'number' || want < 0) {
+          want = (flags[f] === 'calendar') ? total - 1 : f;
+        }
         if (want >= total) want = total - 1;
         while (seq[want] !== undefined) want = (want + 1) % total;
         seq[want] = flags[f];
-      }
-      if (calendarPending) {
-        for (var c = total - 1; c >= 0; c--) {
-          if (seq[c] === undefined) { seq[c] = 'calendar'; break; }
-        }
       }
       var li = 0;
       for (var s = 0; s < total; s++) {
@@ -1929,8 +1585,6 @@ function saveData(json) {
     var dragFromIndex = null;
 
     function setupCardDrag() {
-      if (!CAN_EDIT) return;
-
       var cards = document.querySelectorAll('#grid .card');
       for (var i = 0; i < cards.length; i++) {
         var h2 = cards[i].querySelector('h2');
@@ -2025,11 +1679,6 @@ function saveData(json) {
 
 
     function saveAll(msg) {
-      if (!CAN_EDIT) {
-        showToast('You are not authorized to edit this homepage.');
-        return;
-      }
-
       google.script.run
         .withSuccessHandler(function () { showToast(msg || 'Saved'); })
         .withFailureHandler(function (err) {
@@ -2057,7 +1706,7 @@ function saveData(json) {
           html += '<button type="button" class="btn btn-small" data-taction="cancel-edit">Cancel</button></div></div></li>';
         } else {
           html += '<li class="row todo-row" data-label="' + lbl + '">';
-          html += '<input type="checkbox" class="todo-check" data-ti="' + i + '" aria-label="Mark complete"' + (t.done ? ' checked' : '') + (CAN_EDIT ? '' : ' disabled') + '>';
+          html += '<input type="checkbox" class="todo-check" data-ti="' + i + '" aria-label="Mark complete"' + (t.done ? ' checked' : '') + '>';
           html += '<div class="todo-main"><span class="todo-text' + (t.done ? ' done' : '') + '">' + escapeHtml(t.text) + '</span>';
           if (t.note) html += '<span class="note">' + escapeHtml(t.note) + '</span>';
           html += '</div>';
@@ -2114,7 +1763,7 @@ function saveData(json) {
     }
 
     function onSpecialClick(e) {
-      if (!CAN_EDIT || editMode) return;
+      if (editMode) return;
       var btn = e.target.closest ? e.target.closest('[data-taction],[data-daction]') : null;
       if (!btn) return;
       var t = btn.getAttribute('data-taction');
@@ -2146,7 +1795,7 @@ function saveData(json) {
     }
 
     function onSpecialChange(e) {
-      if (!CAN_EDIT || editMode) return;
+      if (editMode) return;
       var el = e.target;
       if (el.classList && el.classList.contains('todo-check')) {
         var i = parseInt(el.getAttribute('data-ti'), 10);
@@ -2157,7 +1806,7 @@ function saveData(json) {
     }
 
     function onSpecialKey(e) {
-      if (!CAN_EDIT || editMode || e.key !== 'Enter') return;
+      if (editMode || e.key !== 'Enter') return;
       var id = e.target.id;
       if (id === 'todo-new') { e.preventDefault(); addTodo(); }
       else if (id === 'todo-edit-text' || id === 'todo-edit-note') { e.preventDefault(); commitTodoEdit(); }
@@ -2242,11 +1891,6 @@ function saveData(json) {
     // EDIT MODE
     // ============================================================
     function enterEditMode() {
-      if (!CAN_EDIT) {
-        showToast('You are not authorized to edit this homepage.');
-        return;
-      }
-
       editMode = true;
       draft = JSON.parse(JSON.stringify(LINKS));
       draftDocs = JSON.parse(JSON.stringify(DOCS));
@@ -2265,7 +1909,7 @@ function saveData(json) {
       draft = null;
       draftDocs = null;
       document.getElementById('filter').classList.remove('hidden');
-      document.getElementById('edit-btn').classList.toggle('hidden', !CAN_EDIT);
+      document.getElementById('edit-btn').classList.remove('hidden');
       document.getElementById('save-btn').classList.add('hidden');
       document.getElementById('cancel-btn').classList.add('hidden');
       document.getElementById('edit-note').classList.add('hidden');
@@ -2442,11 +2086,6 @@ function saveData(json) {
       toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
     }
 
-    function applyPermissions() {
-      document.body.classList.toggle('read-only', !CAN_EDIT);
-      document.getElementById('edit-btn').classList.toggle('hidden', !CAN_EDIT);
-    }
-
     function setGreeting() {
       var h = new Date().getHours();
       var part = h < 12 ? 'Good morning' : (h < 17 ? 'Good afternoon' : 'Good evening');
@@ -2487,7 +2126,6 @@ function saveData(json) {
     }
 
     applyBranding();
-    applyPermissions();
     renderView();
     setGreeting();
     document.getElementById('filter').addEventListener('input', applyFilter);
@@ -2551,6 +2189,62 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
     show(0);
   });
 
+  // ---------- External E.O. Smith defaults ----------
+  // Keep school links/documents in eosmith-defaults.json next to index.html.
+  // GitHub Pages serves both files from the same folder, so updating links
+  // never requires editing this wizard file.
+  var EOS_DEFAULT_DATA = null;
+  var EOS_DEFAULTS_FILE = './eosmith-defaults.json';
+
+  function validateDefaults(data) {
+    if (!data || typeof data !== 'object') throw new Error('The defaults file is not a JSON object.');
+    if (!Array.isArray(data.links)) throw new Error('The defaults file needs a links array.');
+    if (!Array.isArray(data.docs)) data.docs = [];
+    if (!Array.isArray(data.todos)) data.todos = [];
+    if (!data.layout || typeof data.layout !== 'object') data.layout = { docs: 3, calendar: 6 };
+    return data;
+  }
+
+  function injectDefaultData(raw) {
+    if (!EOS_DEFAULT_DATA) return raw;
+    var pretty = function (value) { return JSON.stringify(value, null, 2); };
+    return raw
+      .replace('__EOS_DEFAULT_LINKS__', pretty(EOS_DEFAULT_DATA.links))
+      .replace('__EOS_DEFAULT_TODOS__', pretty(EOS_DEFAULT_DATA.todos))
+      .replace('__EOS_DEFAULT_DOCS__', pretty(EOS_DEFAULT_DATA.docs))
+      .replace('__EOS_DEFAULT_LAYOUT__', pretty(EOS_DEFAULT_DATA.layout));
+  }
+
+  function setDefaultsStatus(message, ok) {
+    var el = document.getElementById('defaults-status');
+    if (!el) return;
+    el.innerHTML = '<strong>E.O. Smith defaults:</strong> ' + message;
+    el.className = 'callout ' + (ok ? 'ok' : '');
+  }
+
+  function loadExternalDefaults() {
+    return fetch(EOS_DEFAULTS_FILE, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        EOS_DEFAULT_DATA = validateDefaults(data);
+        setDefaultsStatus('Loaded from <code>eosmith-defaults.json</code>. Edit that file on GitHub whenever school links change.', true);
+        refreshConfig();
+      })
+      .catch(function (err) {
+        EOS_DEFAULT_DATA = null;
+        setDefaultsStatus('Could not load <code>eosmith-defaults.json</code> (' + escapeHtmlForWizard(err.message || String(err)) + '). Keep both files in the same GitHub Pages folder.', false);
+        var pre = document.getElementById('pre-codegs');
+        if (pre) pre.textContent = 'E.O. Smith defaults could not be loaded. Check eosmith-defaults.json and reload this page.';
+      });
+  }
+
+  function escapeHtmlForWizard(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
   // ---------- Code display + copy ----------
   // Restores "<\/script" sequences stored in the text/plain blocks.
   function getCode(id) {
@@ -2576,7 +2270,6 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
     { id: 'cfg-greeting',      key: 'GREETING_TAGLINE',    def: 'Go Panthers',               color: false },
     { id: 'cfg-primary-color', key: 'PRIMARY_COLOR',       def: '#FF0000',        color: true },
     { id: 'cfg-dark-color',    key: 'DARK_COLOR',          def: '#000000',        color: true },
-    { id: 'cfg-edit-owner',    key: 'EDIT_ACCESS',         def: 'OWNER_ONLY',      radio: 'cfg-edit-access' },
     { id: 'cfg-show-todo',     key: 'SHOW_TODO',           def: false,             bool: true },
     { id: 'cfg-show-docs',     key: 'SHOW_DOCS',           def: true,             bool: true },
     { id: 'cfg-show-calendar', key: 'SHOW_CALENDAR',       def: true,            bool: true },
@@ -2627,11 +2320,6 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
     for (var i = 0; i < CFG_FIELDS.length; i++) {
       var f = CFG_FIELDS[i];
       var el = document.getElementById(f.id);
-      if (f.radio) {
-        var checked = document.querySelector('input[name="' + f.radio + '"]:checked');
-        out[f.key] = checked ? checked.value : f.def;
-        continue;
-      }
       if (f.bool) {
         out[f.key] = el ? el.checked : f.def;
         continue;
@@ -2746,14 +2434,8 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
     try {
       var store = {};
       for (var j = 0; j < CFG_FIELDS.length; j++) {
-        var fJ = CFG_FIELDS[j];
-        var elJ = document.getElementById(fJ.id);
-        if (fJ.radio) {
-          var checkedJ = document.querySelector('input[name="' + fJ.radio + '"]:checked');
-          store[fJ.id] = checkedJ ? checkedJ.value : fJ.def;
-        } else {
-          store[fJ.id] = elJ.type === 'checkbox' ? (elJ.checked ? '1' : '0') : elJ.value;
-        }
+        var elJ = document.getElementById(CFG_FIELDS[j].id);
+        store[CFG_FIELDS[j].id] = elJ.type === 'checkbox' ? (elJ.checked ? '1' : '0') : elJ.value;
       }
       localStorage.setItem('eos-homepage-wizard-v1-answers', JSON.stringify(store));
     } catch (e) {}
@@ -2764,16 +2446,9 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
     var savedAnswers = JSON.parse(localStorage.getItem('eos-homepage-wizard-v1-answers') || '{}');
     for (var si = 0; si < CFG_FIELDS.length; si++) {
       if (typeof savedAnswers[CFG_FIELDS[si].id] === 'string') {
-        var fS = CFG_FIELDS[si];
-        var elS = document.getElementById(fS.id);
-        if (fS.radio) {
-          var radioS = document.querySelector('input[name="' + fS.radio + '"][value="' + savedAnswers[fS.id] + '"]');
-          if (radioS) radioS.checked = true;
-        } else if (elS.type === 'checkbox') {
-          elS.checked = savedAnswers[fS.id] === '1';
-        } else {
-          elS.value = savedAnswers[fS.id];
-        }
+        var elS = document.getElementById(CFG_FIELDS[si].id);
+        if (elS.type === 'checkbox') elS.checked = savedAnswers[CFG_FIELDS[si].id] === '1';
+        else elS.value = savedAnswers[CFG_FIELDS[si].id];
       }
     }
   } catch (e) {}
@@ -2785,7 +2460,8 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
 
   fillPre('pre-manifest', 'code-manifest');
   fillPre('pre-index', 'code-index');
-  refreshConfig(); // fills pre-codegs with personalized code
+  refreshConfig(); // Code.gs shows a loading message until defaults arrive.
+  loadExternalDefaults();
 
   // Show the preset E. O. Smith logo immediately. Uploading a new image replaces it.
   (function initDefaultLogo() {
@@ -2825,7 +2501,12 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
   var copyButtons = document.querySelectorAll('.copy-btn[data-code]');
   for (var i = 0; i < copyButtons.length; i++) {
     copyButtons[i].addEventListener('click', function (e) {
-      copyText(getCode(e.currentTarget.getAttribute('data-code')), e.currentTarget);
+      var codeId = e.currentTarget.getAttribute('data-code');
+      if (codeId === 'code-codegs' && !EOS_DEFAULT_DATA) {
+        toast('Default links are still loading — try again in a moment');
+        return;
+      }
+      copyText(getCode(codeId), e.currentTarget);
     });
   }
 
