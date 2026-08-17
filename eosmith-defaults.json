@@ -1,7 +1,7 @@
 {
   "links": [
     {
-      "category": "Start of the Year",
+      "category": "Start of the YEar",
       "items": [
         {
           "label": "Mandatory Trainings",
@@ -58,6 +58,10 @@
           "url": "https://docs.google.com/forms/d/e/1FAIpQLScQoAsp5fx_FSn93rij0XtiMbm1bGq_BwovujUuBDwS_vMppw/viewform?usp=header"
         },
         {
+          "label": "Atlas/Rubicon",
+          "url": "http://eosmith.rubiconatlas.org/"
+        },
+        {
           "label": "PowerSchool",
           "url": ""
         },
@@ -93,14 +97,6 @@
           "label": "Teacher Resources",
           "url": "https://eosmith.instructure.com/courses/62",
           "sub": true
-        },
-        {
-          "label": "TalentEd Perform",
-          "url": "https://regional19.tedk12.com/perform/HRTools/HRStaff_Processes.aspx"
-        },
-        {
-          "label": "Frontline",
-          "url": "https://login.frontlineeducation.com/sso/regionalsd19"
         }
       ]
     },
@@ -120,8 +116,16 @@
           "url": "https://ctseds.ct.gov/CTRegion19"
         },
         {
+          "label": "TalentEd Perform",
+          "url": "https://regional19.tedk12.com/perform/HRTools/HRStaff_Processes.aspx"
+        },
+        {
           "label": "Naviance",
           "url": "https://id.naviance.com/"
+        },
+        {
+          "label": "Frontline",
+          "url": "https://login.frontlineeducation.com/sso/regionalsd19"
         },
         {
           "label": "Learn Platform",
@@ -143,6 +147,11 @@
           "note": "Must be logged into your school Chrome account"
         },
         {
+          "label": "Request for Student Support",
+          "sub": true,
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbyr_tcVFTBaD4Zdsu7vGWeeEn3I0EuAJsQ4HvTsEDFjTxTtuHGfxQzAwVQapYoRQJC_/exec"
+        },
+        {
           "label": "Behavioral Referral Form",
           "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzFgRS-2r0d2V0UxnFSsT6kn5NQ8PVw4KYp6-T45Z53RfTaX3z8wSebAUBM1FTywr6w_A/exec",
           "sub": true
@@ -153,11 +162,6 @@
           "sub": true
         },
         {
-          "label": "Request for Student Support",
-          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbyr_tcVFTBaD4Zdsu7vGWeeEn3I0EuAJsQ4HvTsEDFjTxTtuHGfxQzAwVQapYoRQJC_/exec",
-          "sub": true
-        },
-        {
           "label": "Score Portal",
           "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbxMZWxDxUXYQzIcKa9fs7h74QyDNdYU8V5hwdUllvA01t8gNkhg06c8sRgP8ykAnIC5/exec",
           "sub": true
@@ -165,6 +169,11 @@
         {
           "label": "Accountabilities Submission/Teacher Dashboard",
           "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzyStulOZouFp25SS3zLS1THMSg-OqvhNEIqX_N1B_r6NylmzXuCF1PMzVV0BZsn3zZNQ/exec?as=",
+          "sub": true
+        },
+        {
+          "label": "Freshmen Study Hall Attendance",
+          "url": "https://script.google.com/a/macros/eosmith.org/s/AKfycbzav0_aXOQoYUPTfla4rG7tJFRbHka2kQQt3ys070arGApUw-GsBEeQgML3b-vU16Mu/exec?page=admin",
           "sub": true
         },
         {
@@ -186,7 +195,7 @@
         },
         {
           "label": "Homepage Creation Wizard",
-          "url": "https://scriptingforschools.org/HomepageWizard.html"
+          "url": "https://eosmithhs.github.io/EOS-Homepage-Wizard/"
         }
       ]
     },
@@ -196,6 +205,10 @@
         {
           "label": "AI Resources",
           "url": "https://eosmith.instructure.com/courses/62/pages/ai-at-eos"
+        },
+        {
+          "label": "AI: Classroom Guidelines",
+          "url": "https://drive.google.com/drive/u/0/folders/1A4745oH2g0sfmB41-2NHdCSEO-4I31jG"
         },
         {
           "label": "Google AI Tools",
@@ -227,6 +240,11 @@
           "sub": true
         },
         {
+          "label": "Bring your Spreadsheet data to life with Sheets canvas",
+          "url": "https://blog.google/products-and-platforms/products/workspace/sheets-canvas-for-google-sheets-spreadsheets/",
+          "sub": true
+        },
+        {
           "label": "ChatGPT",
           "url": "https://chatgpt.com/"
         },
@@ -237,7 +255,13 @@
       ]
     }
   ],
-  "todos": [],
+  "todos": [
+    {
+      "text": "Complete Required Trainings",
+      "note": "",
+      "done": false
+    }
+  ],
   "docs": [
     {
       "label": "2026-27 School Calendar",
@@ -266,6 +290,10 @@
     {
       "label": "Program of Studies",
       "url": "https://eosmith.instructure.com/courses/62/pages/program-of-studies"
+    },
+    {
+      "label": "Goal Setting Form (draft Google Doc)",
+      "url": "https://docs.google.com/document/d/1OnDuSd8Z58U0h4gN9HdZpq2ZQwePfGFS4kNg1qpIoyU/edit?usp=sharing"
     }
   ],
   "layout": {
