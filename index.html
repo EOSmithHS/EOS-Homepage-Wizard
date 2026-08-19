@@ -2250,8 +2250,16 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
   function getCode(id) {
     var el = document.getElementById(id);
     var raw = el ? el.textContent.replace(/<\\\/script/g, '</script') : '';
-    // Code.gs is delivered with the user's Step 4 answers written in.
-    return id === 'code-codegs' ? personalizeCode(raw) : raw;
+
+    // Code.gs needs two build-time transformations:
+    // 1. Inject the school defaults loaded from eosmith-defaults.json.
+    // 2. Write the user's Step 4 personalization answers into CONFIG.
+    if (id === 'code-codegs') {
+      raw = injectDefaultData(raw);
+      raw = personalizeCode(raw);
+    }
+
+    return raw;
   }
 
   function fillPre(preId, codeId) {
@@ -2506,7 +2514,22 @@ var LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEYAAAA6CAIAA
         toast('Default links are still loading — try again in a moment');
         return;
       }
-      copyText(getCode(codeId), e.currentTarget);
+
+      var code = getCode(codeId);
+
+      // Never allow a generated Code.gs containing unresolved build tokens
+      // to reach the clipboard. This catches future template/injection bugs
+      // before the user gets as far as deploying a broken Apps Script app.
+      if (codeId === 'code-codegs') {
+        var unresolved = code.match(/__EOS_[A-Z0-9_]+__/g);
+        if (unresolved && unresolved.length) {
+          toast('Build error: unresolved defaults — reload the wizard');
+          console.error('Unresolved Code.gs template tokens:', unresolved);
+          return;
+        }
+      }
+
+      copyText(code, e.currentTarget);
     });
   }
 
