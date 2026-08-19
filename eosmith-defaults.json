@@ -97,6 +97,10 @@
           "label": "Teacher Resources",
           "url": "https://eosmith.instructure.com/courses/62",
           "sub": true
+        },
+        {
+          "label": "Information Technology Info",
+          "url": "https://eosmith.instructure.com/courses/37"
         }
       ]
     },
@@ -273,7 +277,7 @@
     },
     {
       "label": "Staff Phone Directory",
-      "url": "https://drive.google.com/file/d/18j2Gw6kStiQHXz2DDT0As6uIfwdPyu6D/view?usp=sharing"
+      "url": "https://docs.google.com/document/d/1-tz0CMCSgoX6DRMRGbXjGa17ygkeDRqzVFSoCIISNeA/edit?usp=sharing"
     },
     {
       "label": "Request - Professional Leave",
@@ -294,6 +298,10 @@
     {
       "label": "Goal Setting Form (draft Google Doc)",
       "url": "https://docs.google.com/document/d/1OnDuSd8Z58U0h4gN9HdZpq2ZQwePfGFS4kNg1qpIoyU/edit?usp=sharing"
+    },
+    {
+      "label": "School Counselor Assignments",
+      "url": "https://docs.google.com/document/d/1UhAQOM6tNQoAHuzvc4aNYoRoG_HhXGIh/edit?usp=sharing&ouid=110050765011491056928&rtpof=true&sd=true"
     }
   ],
   "layout": {
